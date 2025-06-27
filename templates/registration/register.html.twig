@@ -5,15 +5,26 @@
 {% block body %}
     <h1>Register</h1>
 
-    {{ form_errors(registrationForm) }}
-
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn">Register</button>
+    {{ form_row(registrationForm.email) }}
+
+    {# Champs de InfosUser (form imbriqué) #}
+    {{ form_row(registrationForm.infosUser.firstName) }}
+    {{ form_row(registrationForm.infosUser.lastName) }}
+    {{ form_row(registrationForm.infosUser.city) }}
+    {{ form_row(registrationForm.infosUser.zipCode) }}
+    {{ form_row(registrationForm.infosUser.phoneNumber) }}
+    {{ form_row(registrationForm.infosUser.userName) }}
+    {{ form_row(registrationForm.infosUser.birthDate) }}
+
+    {{ form_row(registrationForm.plainPassword, {
+        label: 'Password'
+    }) }}
+
+    {{ form_row(registrationForm.agreeTerms) }}
+
+    <button type="submit" class="btn btn-primary mt-3">Register</button>
+
     {{ form_end(registrationForm) }}
 {% endblock %}
