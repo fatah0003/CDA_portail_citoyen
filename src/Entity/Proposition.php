@@ -31,12 +31,19 @@ class Proposition
     #[ORM\Column(enumType: PropositionStatus::class)]
     private ?PropositionStatus $status = null;
 
-    #[ORM\Column(type: Types::SIMPLE_ARRAY, enumType: PropositionCategory::class)]
+    #[ORM\Column(type: Types::JSON)]
     private array $category = [];
 
     #[ORM\ManyToOne(inversedBy: 'propositions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
+        $this->status = PropositionStatus::ACTIF;
+    }
 
     public function getId(): ?int
     {
