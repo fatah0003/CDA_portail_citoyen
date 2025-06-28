@@ -15,6 +15,13 @@ use App\Form\DataTransformer\PropositionCategoryArrayTransformer;
 
 class PropositionForm extends AbstractType
 {
+    private PropositionCategoryArrayTransformer $transformer;
+
+    public function __construct(PropositionCategoryArrayTransformer $transformer)
+    {
+        $this->transformer = $transformer;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -22,13 +29,12 @@ class PropositionForm extends AbstractType
             ->add('description')
             ->add('category', ChoiceType::class, [
                 'choices' => PropositionCategory::cases(),
-                'choice_label' => fn(PropositionCategory $choice) => ucfirst($choice->value),
-                'choice_value' => fn(?PropositionCategory $choice) => $choice?->value,
+                'choice_label' => fn($choice) => $choice instanceof PropositionCategory ? ucfirst($choice->value) : $choice,
                 'multiple' => true,
                 'expanded' => true,
             ]);
 
-        $builder->get('category')->addModelTransformer(new PropositionCategoryArrayTransformer());
+        $builder->get('category')->addModelTransformer($this->transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

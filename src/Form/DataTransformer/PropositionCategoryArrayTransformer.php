@@ -4,7 +4,6 @@ namespace App\Form\DataTransformer;
 
 use App\Enum\PropositionCategory;
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class PropositionCategoryArrayTransformer implements DataTransformerInterface
 {
@@ -14,7 +13,9 @@ class PropositionCategoryArrayTransformer implements DataTransformerInterface
             return [];
         }
 
-        return array_map(fn(PropositionCategory $category) => $category->value, $value);
+        return array_map(function ($category) {
+            return $category instanceof PropositionCategory ? $category->value : (string) $category;
+        }, $value);
     }
 
     public function reverseTransform($value): array
@@ -27,5 +28,4 @@ class PropositionCategoryArrayTransformer implements DataTransformerInterface
             return $val instanceof PropositionCategory ? $val : PropositionCategory::from($val);
         }, $value);
     }
-
 }
