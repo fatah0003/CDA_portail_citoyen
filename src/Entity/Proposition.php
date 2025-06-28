@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Enum\PropositionCategory;
 use App\Enum\PropositionStatus;
 use App\Repository\PropositionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -38,11 +40,18 @@ class Proposition
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    /**
+     * @var Collection<int, Favorite>
+     */
+    #[ORM\OneToMany(targetEntity: Favorite::class, mappedBy: 'proposition')]
+    private Collection $favorites;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
         $this->status = PropositionStatus::ACTIF;
+        $this->favorites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,4 +145,49 @@ class Proposition
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Favorite>
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Favorite $favorite): static
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites->add($favorite);
+            $favorite->setProposition($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Favorite $favorite): static
+    {
+        if ($this->favorites->removeElement($favorite)) {
+            // set the owning side to null (unless already changed)
+            if ($favorite->getProposition() === $this) {
+                $favorite->setProposition(null);
+            }
+        }
+
+        return $this;
+    }
+    public function isFavoritedBy(User $user): bool
+    {
+        foreach ($this->favorites as $favorite) {
+            if ($favorite->getUser() === $user) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function getFavoritesCount(): int
+    {
+        return $this->favorites->count();
+    }
+
 }

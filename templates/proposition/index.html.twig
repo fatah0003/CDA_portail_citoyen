@@ -37,6 +37,10 @@
                     <a href="{{ path('app_proposition_edit', {'id': proposition.id}) }}">edit</a>
                 </td>
             </tr>
+            <td>
+                <span class="ms-2">❤️ {{ proposition.getFavoritesCount() }}</span>
+            </td>
+
         {% else %}
             <tr>
                 <td colspan="8">no records found</td>
