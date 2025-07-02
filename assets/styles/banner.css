@@ -1,11 +1,9 @@
-.banner-section {
-    position: relative;
-}
 
 .banner-image {
     width: 100%;
-    height: 100vh; /* hauteur écran */
+    height: 100vh;
     object-fit: cover;
+    position: relative;
 }
 
 .banner-overlay {
