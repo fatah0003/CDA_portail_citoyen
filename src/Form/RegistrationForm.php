@@ -6,15 +6,18 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use App\Form\InfosUserType;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationForm extends AbstractType
 {
+    use RegexTrait;
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -28,19 +31,40 @@ class RegistrationForm extends AbstractType
                     ]),
                 ],
             ])
-            ->add('plainPassword', PasswordType::class, [
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        'max' => 4096,
-                    ]),
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options'  => [
+                    'attr' => [
+                        'autocomplete' => 'new-password',
+                        'class' => 'input-form'
+                    ],
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => 'Ne doit pas etre vide....',
+                        ]),
+                        new Regex(
+                            self::STRONG_PASSWORD,
+                            message: 'Le mot de passe doit contenir au minimum huit caractères, avec au moins une lettre majuscule, une lettre minuscule, un chiffre, et un caractère spécial (#?!@$ %^&*-_).'
+                        )
+                    ],
+                    'label' => 'Mot de passe',
+                    'label_attr' => [
+                        'class' => 'label-form'
+                    ],
                 ],
+                'second_options' => [
+                    'attr' => [
+                        'autocomplete' => 'new-password',
+                        'class' => 'input-form'
+                    ],
+                    'label' => 'Confirmer le mot de passe',
+                    'label_attr' => [
+                        'class' => 'label-form'
+                    ],
+                ],
+                'invalid_message' => 'les mots de passes doivent etre identiques',
+                'mapped' => false,
+
             ])
         ;
     }

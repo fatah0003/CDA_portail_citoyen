@@ -3,6 +3,7 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+    {% block importmap %}{{ importmap(['search']) }}{% endblock %}
     <h1>Register</h1>
 
     {{ form_start(registrationForm) }}
@@ -12,15 +13,40 @@
     {# Champs de InfosUser (form imbriqué) #}
     {{ form_row(registrationForm.infosUser.firstName) }}
     {{ form_row(registrationForm.infosUser.lastName) }}
-    {{ form_row(registrationForm.infosUser.city) }}
-    {{ form_row(registrationForm.infosUser.zipCode) }}
+    <div id="locationContainer">
+        {{ form_row(registrationForm.infosUser.city) }}
+
+        <div id="showlist" style="display: none;">
+            <ul id="showresults"></ul>
+        </div>
+
+        {{ form_row(registrationForm.infosUser.zipCode) }}
+    </div>
+
     {{ form_row(registrationForm.infosUser.phoneNumber) }}
     {{ form_row(registrationForm.infosUser.userName) }}
     {{ form_row(registrationForm.infosUser.birthDate) }}
 
-    {{ form_row(registrationForm.plainPassword, {
-        label: 'Password'
-    }) }}
+    <div class="form-element">
+        {{ form_label(registrationForm.plainPassword.first,null, {'label_attr': {'class': 'required-label'}}) }}
+        <div class="input-with-icon">
+            {{ form_widget(registrationForm.plainPassword.first) }}
+            <span class="toggle-password" aria-label="Afficher ou masquer le mot de passe" onclick="togglePassword('registration_form_plainPassword_first')">
+                <i class="fas fa-eye"></i>
+            </span>
+        </div>
+        {{ form_errors(registrationForm.plainPassword.first) }}
+    </div>
+    <div class="form-element">
+        {{ form_label(registrationForm.plainPassword.second,null, {'label_attr': {'class': 'required-label'}}) }}
+        <div class="input-with-icon">
+            {{ form_widget(registrationForm.plainPassword.second) }}
+            <span class="toggle-password" aria-label="Afficher ou masquer le mot de passe" onclick="togglePassword('registration_form_plainPassword_second')">
+                <i class="fas fa-eye"></i>
+            </span>
+        </div>
+        {{ form_errors(registrationForm.plainPassword.second) }}
+    </div>
 
     {{ form_row(registrationForm.agreeTerms) }}
 
