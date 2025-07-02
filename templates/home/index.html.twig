@@ -4,23 +4,8 @@
 
 {% block body %}
 
-    <section class="banner-section relative">
-        <img src="{{ asset('pictures/banniere.jpg') }}" alt="Bannière Lyon" class="banner-image" />
-
-        <div class="banner-overlay">
-            <h1 class="banner-title">
-                Votre voix, vos idées, votre ville
-            </h1>
-            <h2 class="banner-subtitle">
-                Un portail au service des citoyens
-            </h2>
-
-            <p class="banner-text">
-                Une plateforme pour proposer, voter et faire entendre votre voix.<br>
-                Proposez, soutenez, réalisez les idées qui vous tiennent à cœur.
-            </p>
-        </div>
-    </section>
+    {% include '_partials/homePage/_banner.html.twig' %}
+    {% include '_partials/homePage/_about.html.twig' %}
 
 
 {% endblock %}
