@@ -1,10 +1,10 @@
 
 header {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(7, 80, 131, 0.7);
+    background-color: rgb(7, 80, 131);
     color: white;
     padding: 1em 1.2em;
     z-index: 1000;
