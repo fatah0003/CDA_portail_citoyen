@@ -1,0 +1,87 @@
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(7, 80, 131, 0.7);
+    color: white;
+    padding: 1em 1.2em;
+    z-index: 1000;
+}
+
+.header-container{
+    display:  flex;
+    justify-content:space-between;
+    align-items:center;
+    justify-items:  center;
+    padding-right: 1.2em;
+}
+
+.menu-nav{
+    display:  flex;
+    align-items:center;
+    justify-items:  center;
+    gap: 4em;
+}
+
+.menu{
+    display:  flex;
+    gap:   2em;
+    list-style: none;
+}
+
+.menu li a {
+    position: relative; /* Important pour positionner le ::after */
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 16px;
+    padding: 4px 0; /* un peu d’espace vertical */
+}
+
+.menu li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0; /* caché par défaut */
+    background-color: white; /* couleur du soulignement */
+    transition: width 0.3s ease;
+}
+
+/* Au survol, on fait apparaître la ligne */
+.menu li a:hover::after {
+    width: 100%;
+}
+
+.logo{
+    display:  flex;
+    align-items:center;
+    gap: 1.1em;
+}
+
+.logo-text{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+}
+
+.btn-connexion {
+    background-color: #EF7C19;
+    padding: 0.6em 3em;
+    border-radius: 25px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.btn-connexion:hover {
+    background-color: #f85802;
+}
+

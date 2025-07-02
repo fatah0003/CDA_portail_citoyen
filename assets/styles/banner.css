@@ -1,0 +1,55 @@
+.banner-section {
+    position: relative;
+}
+
+.banner-image {
+    width: 100%;
+    height: 100vh; /* hauteur écran */
+    object-fit: cover;
+}
+
+.banner-overlay {
+    position: absolute;
+    inset: 0; /* top:0; bottom:0; left:0; right:0; */
+    background-color: rgba(0, 0, 0, 0.2); /* bg-black with 20% opacity */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1rem; /* px-4 = 1rem padding left/right */
+}
+
+.banner-title {
+    font-size: 2.25rem; /* text-4xl */
+    font-weight: 700; /* font-bold */
+    color: white;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7); /* drop-shadow */
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .banner-title {
+        font-size: 3rem; /* md:text-5xl */
+    }
+}
+
+.banner-subtitle {
+    font-size: 1.5rem; /* text-2xl */
+    color: white;
+    margin-top: 1rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+@media (min-width: 768px) {
+    .banner-subtitle {
+        font-size: 1.875rem; /* md:text-3xl */
+    }
+}
+
+.banner-text {
+    color: white;
+    margin-top: 1.5rem;
+    max-width: 40rem; /* max-w-2xl */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}

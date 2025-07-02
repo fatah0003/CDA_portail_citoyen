@@ -1,0 +1,23 @@
+<header>
+    <div class="header-container">
+        <div class="logo">
+            <a href="{{ path('app_home') }}">
+                <img src="{{ asset('pictures/logo.jpg') }}" alt="Logo">
+            </a>
+            <div class="logo-text">
+                <strong>LA PAROLE AUX CITOYENS</strong>
+                L’ACTION À LA MAIRIE
+            </div>
+        </div>
+
+        <nav class="menu-nav">
+            <ul class="menu">
+                <li><a href="{{ path('app_home') }}">Accueil</a></li>
+                <li><a href="{{ path('app_proposition_index') }}">Propositions</a></li>
+                <li><a href="#">À propos</a></li>
+                <li><a href="#">Nous contacter</a></li>
+            </ul>
+            <a href="{{ path('app_login') }}" class="btn-connexion">Connexion</a>
+        </nav>
+    </div>
+</header>
