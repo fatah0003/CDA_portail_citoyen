@@ -3,6 +3,7 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+    {% block importmap %}{{ importmap(['search']) }}{% endblock %}
     <h1>Register</h1>
 
     {{ form_start(registrationForm) }}
@@ -12,8 +13,16 @@
     {# Champs de InfosUser (form imbriqué) #}
     {{ form_row(registrationForm.infosUser.firstName) }}
     {{ form_row(registrationForm.infosUser.lastName) }}
-    {{ form_row(registrationForm.infosUser.city) }}
-    {{ form_row(registrationForm.infosUser.zipCode) }}
+    <div id="locationContainer">
+        {{ form_row(registrationForm.infosUser.city) }}
+
+        <div id="showlist" style="display: none;">
+            <ul id="showresults"></ul>
+        </div>
+
+        {{ form_row(registrationForm.infosUser.zipCode) }}
+    </div>
+
     {{ form_row(registrationForm.infosUser.phoneNumber) }}
     {{ form_row(registrationForm.infosUser.userName) }}
     {{ form_row(registrationForm.infosUser.birthDate) }}
