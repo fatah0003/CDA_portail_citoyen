@@ -1,5 +1,5 @@
 .about {
-    padding: 6rem 2rem;
+    padding: 3rem 2rem;
 }
 
 
@@ -8,6 +8,9 @@
     flex-wrap:  wrap;
     justify-content: space-around;
     padding: 3rem 3rem;
+}
+.about-content p{
+    padding-top: 1rem;
 }
 
 .about-content h2{

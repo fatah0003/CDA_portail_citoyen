@@ -1,0 +1,91 @@
+.function-section{
+    padding: 0 3rem;
+}
+
+.function-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.green{
+    background-color:  #318F7A;
+}
+
+.blue{
+    background-color: rgb(7, 80, 131);
+}
+
+.card--container{
+    display: flex;
+    flex-wrap:  wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 4rem 1rem;
+}
+
+.card--function{
+
+    background-color: whitesmoke;
+    border-radius: 12px;
+    padding: 2rem 1rem;
+    text-align: center;
+    width: 22rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.card--function:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+.card--function p{
+    text-align: left;
+    padding-top: 4rem;
+    color: #888888;
+}
+
+.card--function img{
+
+    padding-top: 2rem;
+
+}
+
+.card--function h3{
+    padding-top: 1rem;
+    color: #EF7C19;
+}
+
+.card--function h4{
+    padding-top: 1rem;
+    font-size:  1.2rem;
+}
+
+.card--function--static{
+
+    background-color: whitesmoke;
+    border-radius: 12px;
+    padding: 2rem 1rem;
+    text-align: center;
+    width: 22rem;
+}
+
+.card--function--static h4{
+    padding-top: 1rem;
+    font-size:  1.2rem;
+}
+
+.card--function--static h3{
+    padding-top: 1rem;
+    color: #EF7C19;
+}
+
+.card--function--static p{
+    text-align: left;
+    padding-top: 4rem;
+    color: #888888;
+}
+
