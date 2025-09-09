@@ -1,0 +1,76 @@
+.footer {
+    background-color: #004b80; /* bleu foncé */
+    color: white;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+    font-family: sans-serif;
+}
+
+.footer__section {
+    flex:250px;
+}
+
+.footer__section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.footer__section h3::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #f44336; /* ligne rouge */
+    margin-top: 0.25rem;
+}
+
+.footer__section p,
+.footer__section li,
+.footer__newsletter small {
+    font-size: 0.95rem;
+    margin: 0.4rem 0;
+    color: white;
+}
+
+.footer__section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer__section a {
+    text-decoration: none;
+    color: white;
+}
+
+.footer__newsletter {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer__newsletter input {
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 6px;
+    margin: 0.6rem 0;
+}
+
+.footer__newsletter button {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.footer__bottom {
+    width: 100%;
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+}

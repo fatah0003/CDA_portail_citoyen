@@ -1,0 +1,7 @@
+.container--partner{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:  space-around;
+    padding: 6rem 1rem;
+}
+
