@@ -260,7 +260,7 @@ class __TwigTemplate_5417c6a88fc6d864497f77180d3ad702 extends Template
         // line 86
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
         yield "\" class=\"btn btn-secondary\">
-                S'inscrire
+                Se connecter
             </a>
 
             ";
@@ -414,7 +414,7 @@ class __TwigTemplate_5417c6a88fc6d864497f77180d3ad702 extends Template
             <button type=\"submit\" class=\"btn btn-submit\">S'inscrire</button>
             <br>
             <a href=\"{{ path('app_login') }}\" class=\"btn btn-secondary\">
-                S'inscrire
+                Se connecter
             </a>
 
             {{ form_end(registrationForm) }}

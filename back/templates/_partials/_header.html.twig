@@ -10,6 +10,11 @@
             </div>
         </div>
 
+
+        <button class="burger" aria-label="Menu">
+            <img src="{{ asset('pictures/vector.png') }}" alt="Menu">
+        </button>
+
         <nav class="menu-nav">
             <ul class="menu">
                 <li><a href="{{ path('app_home') }}">Accueil</a></li>
@@ -21,3 +26,19 @@
         </nav>
     </div>
 </header>
+
+{% block javascripts %}
+    {% block importmap %}{{ importmap('app') }}{% endblock %}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const burger = document.querySelector(".burger");
+            const menuNav = document.querySelector(".menu-nav");
+
+            if (burger && menuNav) {
+                burger.addEventListener("click", () => {
+                    menuNav.classList.toggle("active");
+                });
+            }
+        });
+    </script>
+{% endblock %}

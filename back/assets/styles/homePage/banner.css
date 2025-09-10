@@ -51,3 +51,14 @@
     max-width: 40rem; /* max-w-2xl */
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
+
+@media (max-width: 700px) {
+    .banner-image,
+    .banner-overlay,
+    .banner-title,
+    .banner-subtitle,
+    .banner-text {
+        display: none;
+    }
+}
+
