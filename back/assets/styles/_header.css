@@ -144,3 +144,79 @@ header {
 
     }
 }
+
+/*.btn-connexion-connect {*/
+/*    display: inline-flex; !* pour aligner le texte et le point *!*/
+/*    align-items: center;*/
+/*    padding: 0.5rem 1rem;*/
+/*    color: white;*/
+/*    font-weight: bold;*/
+/*    border-radius: 20px;*/
+/*    font-size: 0.9rem;*/
+/*    text-align: center;*/
+/*    gap: 0.5rem; !* espace entre le texte et le point *!*/
+/*}*/
+
+/*.btn-connexion-connect::after {*/
+/*    content: "";*/
+/*    display: inline-block;*/
+/*    width: 10px;*/
+/*    height: 10px;*/
+/*    background-color: #00ff00; !* vert vif *!*/
+/*    border-radius: 50%; !* rond *!*/
+/*}*/
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-connexion-connect {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    text-align: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-connexion-connect:hover {
+    background-color: #2b7465;
+}
+
+.online-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #00ff00;
+    border-radius: 50%;
+}
+
+/* Menu déroulant */
+.dropdown-menu {
+    position: absolute;
+    top: 150%;
+    left: 10%;
+    background-color: white;
+    color: black;
+    min-width: 150px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.dropdown-menu a {
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f0f0f0;
+}
