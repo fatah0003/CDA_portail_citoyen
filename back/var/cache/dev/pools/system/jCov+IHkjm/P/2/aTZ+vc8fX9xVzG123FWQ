@@ -1,0 +1,3 @@
+<?php //8f18555ad4b8ca8d860a139cf3cbc6fd
+
+return [PHP_INT_MAX, 'controllers/hello_controller.js'];
