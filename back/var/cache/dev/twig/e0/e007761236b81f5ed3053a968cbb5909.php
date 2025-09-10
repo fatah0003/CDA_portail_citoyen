@@ -298,6 +298,6 @@ class __TwigTemplate_d81558102478946a994b8a1902740150 extends Template
 
     <a href=\"{{ path('app_proposition_new') }}\">Create new</a>
 {% endblock %}
-", "proposition/index.html.twig", "E:\\Formation CDA\\Cours\\18-mise_en_pratique_projet\\portial_citoyen\\templates\\proposition\\index.html.twig");
+", "proposition/index.html.twig", "C:\\Users\\Daniel\\Desktop\\tp_portail\\CDA_portail_citoyen\\back\\templates\\proposition\\index.html.twig");
     }
 }
