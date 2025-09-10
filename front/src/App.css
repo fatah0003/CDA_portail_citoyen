@@ -1,0 +1,368 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    background-color:white;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(7, 80, 131);
+    color: white;
+    padding: 1em 1.2em;
+    z-index: 1000;
+}
+
+.header-container{
+    display:  flex;
+    justify-content:space-between;
+    align-items:center;
+    justify-items:  center;
+    padding-right: 1.2em;
+}
+
+.menu-nav{
+    display:  flex;
+    align-items:center;
+    justify-items:  center;
+    gap: 4em;
+}
+
+.menu{
+    display:  flex;
+    gap:   2em;
+    list-style: none;
+}
+
+.menu li a {
+    position: relative; /* Important pour positionner le ::after */
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 16px;
+    padding: 4px 0; /* un peu d’espace vertical */
+}
+
+.menu li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0; /* caché par défaut */
+    background-color: white; /* couleur du soulignement */
+    transition: width 0.3s ease;
+}
+
+/* Au survol, on fait apparaître la ligne */
+.menu li a:hover::after {
+    width: 100%;
+}
+
+.logo{
+    display:  flex;
+    align-items:center;
+    gap: 1.1em;
+}
+
+.logo-text{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+}
+
+.btn-connexion {
+    background-color: #EF7C19;
+    padding: 0.6em 3em;
+    border-radius: 25px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.btn-connexion:hover {
+    background-color: #f85802;
+}
+
+.footer {
+    background-color: #004b80; /* bleu foncé */
+    color: white;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+    font-family: sans-serif;
+}
+
+.footer__section {
+    flex:250px;
+}
+
+.footer__section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.footer__section h3::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #f44336; /* ligne rouge */
+    margin-top: 0.25rem;
+}
+
+.footer__section p,
+.footer__section li,
+.footer__newsletter small {
+    font-size: 0.95rem;
+    margin: 0.4rem 0;
+    color: white;
+}
+
+.footer__section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer__section a {
+    text-decoration: none;
+    color: white;
+}
+
+.footer__newsletter {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer__newsletter input {
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 6px;
+    margin: 0.6rem 0;
+}
+
+.footer__newsletter button {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.footer__bottom {
+    width: 100%;
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+}
+.about {
+    padding: 3rem 2rem;
+}
+
+
+.about-content{
+    display: flex;
+    flex-wrap:  wrap;
+    justify-content: space-around;
+    padding: 3rem 3rem;
+}
+.about-content p{
+    padding-top: 1rem;
+}
+
+.about-content h2{
+    font-weight: bold;
+    font-size:  3.2rem;
+}
+
+.about-content p {
+    color: #888888;
+}
+
+
+.about-text{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.about-button{
+    color: orange;
+    text-decoration: none;
+}
+
+.about-button:hover{
+    color: #bc6a05;
+}
+.function-section{
+    padding: 0 3rem;
+}
+
+.function-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.green{
+    background-color:  #318F7A;
+}
+
+.blue{
+    background-color: rgb(7, 80, 131);
+}
+
+.card--container{
+    display: flex;
+    flex-wrap:  wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 4rem 1rem;
+}
+
+.card--function{
+
+    background-color: whitesmoke;
+    border-radius: 12px;
+    padding: 2rem 1rem;
+    text-align: center;
+    width: 22rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.card--function:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+.card--function p{
+    text-align: left;
+    padding-top: 4rem;
+    color: #888888;
+}
+
+.card--function img{
+
+    padding-top: 2rem;
+
+}
+
+.card--function h3{
+    padding-top: 1rem;
+    color: #EF7C19;
+}
+
+.card--function h4{
+    padding-top: 1rem;
+    font-size:  1.2rem;
+}
+
+.card--function--static{
+
+    background-color: whitesmoke;
+    border-radius: 12px;
+    padding: 2rem 1rem;
+    text-align: center;
+    width: 22rem;
+}
+
+.card--function--static h4{
+    padding-top: 1rem;
+    font-size:  1.2rem;
+}
+
+.card--function--static h3{
+    padding-top: 1rem;
+    color: #EF7C19;
+}
+
+.card--function--static p{
+    text-align: left;
+    padding-top: 4rem;
+    color: #888888;
+}
+
+.container--partner{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:  space-around;
+    padding: 6rem 1rem;
+}
+
+
+.banner-image {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    position: relative;
+}
+
+.banner-overlay {
+    position: absolute;
+    inset: 0; /* top:0; bottom:0; left:0; right:0; */
+    background-color: rgba(0, 0, 0, 0.2); /* bg-black with 20% opacity */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1rem; /* px-4 = 1rem padding left/right */
+}
+
+.banner-title {
+    font-size: 2.25rem; /* text-4xl */
+    font-weight: 700; /* font-bold */
+    color: white;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7); /* drop-shadow */
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .banner-title {
+        font-size: 3rem; /* md:text-5xl */
+    }
+}
+
+.banner-subtitle {
+    font-size: 1.5rem; /* text-2xl */
+    color: white;
+    margin-top: 1rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+@media (min-width: 768px) {
+    .banner-subtitle {
+        font-size: 1.875rem; /* md:text-3xl */
+    }
+}
+
+.banner-text {
+    color: white;
+    margin-top: 1.5rem;
+    max-width: 40rem; /* max-w-2xl */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}

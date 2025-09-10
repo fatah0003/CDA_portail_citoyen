@@ -491,3 +491,6 @@ d8f73a,127.0.0.1,GET,http://127.0.0.1:8000/proposition,1757494666,,200,request
 9e357f,127.0.0.1,GET,http://127.0.0.1:8000/proposition/1,1757494675,,200,request
 6af729,127.0.0.1,GET,http://127.0.0.1:8000/,1757496621,,200,request
 6c2366,127.0.0.1,GET,http://127.0.0.1:8000/proposition,1757496630,,200,request
+dd1290,127.0.0.1,GET,http://127.0.0.1:8000/,1757506912,,200,request
+70b871,127.0.0.1,GET,http://127.0.0.1:8000/.well-known/appspecific/com.chrome.devtools.json,1757506922,3f4b89,404,request
+3f4b89,127.0.0.1,GET,http://127.0.0.1:8000/.well-known/appspecific/com.chrome.devtools.json,1757506922,,404,request
