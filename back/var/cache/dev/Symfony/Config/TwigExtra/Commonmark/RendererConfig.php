@@ -14,7 +14,7 @@ class RendererConfig
     private $innerSeparator;
     private $softBreak;
     private $_usedProperties = [];
-
+    
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -24,10 +24,10 @@ class RendererConfig
     {
         $this->_usedProperties['blockSeparator'] = true;
         $this->blockSeparator = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -37,10 +37,10 @@ class RendererConfig
     {
         $this->_usedProperties['innerSeparator'] = true;
         $this->innerSeparator = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -50,10 +50,10 @@ class RendererConfig
     {
         $this->_usedProperties['softBreak'] = true;
         $this->softBreak = $value;
-
+    
         return $this;
     }
-
+    
     public function __construct(array $value = [])
     {
         if (array_key_exists('block_separator', $value)) {
@@ -61,24 +61,24 @@ class RendererConfig
             $this->blockSeparator = $value['block_separator'];
             unset($value['block_separator']);
         }
-
+    
         if (array_key_exists('inner_separator', $value)) {
             $this->_usedProperties['innerSeparator'] = true;
             $this->innerSeparator = $value['inner_separator'];
             unset($value['inner_separator']);
         }
-
+    
         if (array_key_exists('soft_break', $value)) {
             $this->_usedProperties['softBreak'] = true;
             $this->softBreak = $value['soft_break'];
             unset($value['soft_break']);
         }
-
+    
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-
+    
     public function toArray(): array
     {
         $output = [];
@@ -91,7 +91,7 @@ class RendererConfig
         if (isset($this->_usedProperties['softBreak'])) {
             $output['soft_break'] = $this->softBreak;
         }
-
+    
         return $output;
     }
 

@@ -26,9 +26,9 @@ class MailerConfig
     private $smimeSigner;
     private $smimeEncrypter;
     private $_usedProperties = [];
-
+    
     /**
-     * @default false
+     * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
      */
@@ -36,10 +36,10 @@ class MailerConfig
     {
         $this->_usedProperties['enabled'] = true;
         $this->enabled = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * The message bus to use. Defaults to the default bus if the Messenger component is installed.
      * @default null
@@ -50,10 +50,10 @@ class MailerConfig
     {
         $this->_usedProperties['messageBus'] = true;
         $this->messageBus = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -63,10 +63,10 @@ class MailerConfig
     {
         $this->_usedProperties['dsn'] = true;
         $this->dsn = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * @return $this
      */
@@ -74,10 +74,10 @@ class MailerConfig
     {
         $this->_usedProperties['transports'] = true;
         $this->transports[$name] = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * Mailer Envelope configuration
     */
@@ -89,10 +89,10 @@ class MailerConfig
         } elseif (0 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "envelope()" has already been initialized. You cannot pass values the second time you call envelope().');
         }
-
+    
         return $this->envelope;
     }
-
+    
     /**
      * @template TValue
      * @param TValue $value
@@ -104,20 +104,20 @@ class MailerConfig
         if (!\is_array($value)) {
             $this->_usedProperties['headers'] = true;
             $this->headers[$name] = $value;
-
+    
             return $this;
         }
-
+    
         if (!isset($this->headers[$name]) || !$this->headers[$name] instanceof \Symfony\Config\Framework\Mailer\HeaderConfig) {
             $this->_usedProperties['headers'] = true;
             $this->headers[$name] = new \Symfony\Config\Framework\Mailer\HeaderConfig($value);
         } elseif (1 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "header()" has already been initialized. You cannot pass values the second time you call header().');
         }
-
+    
         return $this->headers[$name];
     }
-
+    
     /**
      * @template TValue
      * @param TValue $value
@@ -131,20 +131,20 @@ class MailerConfig
         if (!\is_array($value)) {
             $this->_usedProperties['dkimSigner'] = true;
             $this->dkimSigner = $value;
-
+    
             return $this;
         }
-
+    
         if (!$this->dkimSigner instanceof \Symfony\Config\Framework\Mailer\DkimSignerConfig) {
             $this->_usedProperties['dkimSigner'] = true;
             $this->dkimSigner = new \Symfony\Config\Framework\Mailer\DkimSignerConfig($value);
         } elseif (0 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "dkimSigner()" has already been initialized. You cannot pass values the second time you call dkimSigner().');
         }
-
+    
         return $this->dkimSigner;
     }
-
+    
     /**
      * @template TValue
      * @param TValue $value
@@ -158,20 +158,20 @@ class MailerConfig
         if (!\is_array($value)) {
             $this->_usedProperties['smimeSigner'] = true;
             $this->smimeSigner = $value;
-
+    
             return $this;
         }
-
+    
         if (!$this->smimeSigner instanceof \Symfony\Config\Framework\Mailer\SmimeSignerConfig) {
             $this->_usedProperties['smimeSigner'] = true;
             $this->smimeSigner = new \Symfony\Config\Framework\Mailer\SmimeSignerConfig($value);
         } elseif (0 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "smimeSigner()" has already been initialized. You cannot pass values the second time you call smimeSigner().');
         }
-
+    
         return $this->smimeSigner;
     }
-
+    
     /**
      * @template TValue
      * @param TValue $value
@@ -185,20 +185,20 @@ class MailerConfig
         if (!\is_array($value)) {
             $this->_usedProperties['smimeEncrypter'] = true;
             $this->smimeEncrypter = $value;
-
+    
             return $this;
         }
-
+    
         if (!$this->smimeEncrypter instanceof \Symfony\Config\Framework\Mailer\SmimeEncrypterConfig) {
             $this->_usedProperties['smimeEncrypter'] = true;
             $this->smimeEncrypter = new \Symfony\Config\Framework\Mailer\SmimeEncrypterConfig($value);
         } elseif (0 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "smimeEncrypter()" has already been initialized. You cannot pass values the second time you call smimeEncrypter().');
         }
-
+    
         return $this->smimeEncrypter;
     }
-
+    
     public function __construct(array $value = [])
     {
         if (array_key_exists('enabled', $value)) {
@@ -206,60 +206,60 @@ class MailerConfig
             $this->enabled = $value['enabled'];
             unset($value['enabled']);
         }
-
+    
         if (array_key_exists('message_bus', $value)) {
             $this->_usedProperties['messageBus'] = true;
             $this->messageBus = $value['message_bus'];
             unset($value['message_bus']);
         }
-
+    
         if (array_key_exists('dsn', $value)) {
             $this->_usedProperties['dsn'] = true;
             $this->dsn = $value['dsn'];
             unset($value['dsn']);
         }
-
+    
         if (array_key_exists('transports', $value)) {
             $this->_usedProperties['transports'] = true;
             $this->transports = $value['transports'];
             unset($value['transports']);
         }
-
+    
         if (array_key_exists('envelope', $value)) {
             $this->_usedProperties['envelope'] = true;
             $this->envelope = new \Symfony\Config\Framework\Mailer\EnvelopeConfig($value['envelope']);
             unset($value['envelope']);
         }
-
+    
         if (array_key_exists('headers', $value)) {
             $this->_usedProperties['headers'] = true;
             $this->headers = array_map(fn ($v) => \is_array($v) ? new \Symfony\Config\Framework\Mailer\HeaderConfig($v) : $v, $value['headers']);
             unset($value['headers']);
         }
-
+    
         if (array_key_exists('dkim_signer', $value)) {
             $this->_usedProperties['dkimSigner'] = true;
             $this->dkimSigner = \is_array($value['dkim_signer']) ? new \Symfony\Config\Framework\Mailer\DkimSignerConfig($value['dkim_signer']) : $value['dkim_signer'];
             unset($value['dkim_signer']);
         }
-
+    
         if (array_key_exists('smime_signer', $value)) {
             $this->_usedProperties['smimeSigner'] = true;
             $this->smimeSigner = \is_array($value['smime_signer']) ? new \Symfony\Config\Framework\Mailer\SmimeSignerConfig($value['smime_signer']) : $value['smime_signer'];
             unset($value['smime_signer']);
         }
-
+    
         if (array_key_exists('smime_encrypter', $value)) {
             $this->_usedProperties['smimeEncrypter'] = true;
             $this->smimeEncrypter = \is_array($value['smime_encrypter']) ? new \Symfony\Config\Framework\Mailer\SmimeEncrypterConfig($value['smime_encrypter']) : $value['smime_encrypter'];
             unset($value['smime_encrypter']);
         }
-
+    
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-
+    
     public function toArray(): array
     {
         $output = [];
@@ -290,7 +290,7 @@ class MailerConfig
         if (isset($this->_usedProperties['smimeEncrypter'])) {
             $output['smime_encrypter'] = $this->smimeEncrypter instanceof \Symfony\Config\Framework\Mailer\SmimeEncrypterConfig ? $this->smimeEncrypter->toArray() : $this->smimeEncrypter;
         }
-
+    
         return $output;
     }
 

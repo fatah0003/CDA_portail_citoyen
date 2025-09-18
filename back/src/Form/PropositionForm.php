@@ -3,14 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Proposition;
-use App\Entity\User;
+use App\Form\PropositionFileTypeForm;
+use App\Enum\PropositionStatus;
 use App\Enum\PropositionCategory;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use App\Form\DataTransformer\PropositionCategoryArrayTransformer;
 
 class PropositionForm extends AbstractType
@@ -27,11 +27,26 @@ class PropositionForm extends AbstractType
         $builder
             ->add('title')
             ->add('description')
+            ->add('status', ChoiceType::class, [
+                'choices' => array_combine(
+                    array_map(fn($status) => $status->name, PropositionStatus::cases()),
+                    PropositionStatus::cases()
+                ),
+                'choice_label' => fn($status) => $status->name,
+                'choice_value' => fn(?PropositionStatus $status) => $status?->value,
+            ])
             ->add('category', ChoiceType::class, [
                 'choices' => PropositionCategory::cases(),
                 'choice_label' => fn($choice) => $choice instanceof PropositionCategory ? ucfirst($choice->value) : $choice,
                 'multiple' => true,
                 'expanded' => true,
+            ])
+            ->add('propositionFiles', CollectionType::class, [
+                'entry_type' => PropositionFileTypeForm::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false, // obligatoire pour OneToMany
+                'prototype' => true,
             ]);
 
         $builder->get('category')->addModelTransformer($this->transformer);
@@ -39,8 +54,6 @@ class PropositionForm extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'data_class' => Proposition::class,
-        ]);
+        $resolver->setDefaults(['data_class' => Proposition::class]);
     }
 }

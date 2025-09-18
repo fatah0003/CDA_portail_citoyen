@@ -13,9 +13,9 @@ class PropertyInfoConfig
     private $enabled;
     private $withConstructorExtractor;
     private $_usedProperties = [];
-
+    
     /**
-     * @default false
+     * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
      */
@@ -23,10 +23,10 @@ class PropertyInfoConfig
     {
         $this->_usedProperties['enabled'] = true;
         $this->enabled = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * Registers the constructor extractor.
      * @default null
@@ -37,10 +37,10 @@ class PropertyInfoConfig
     {
         $this->_usedProperties['withConstructorExtractor'] = true;
         $this->withConstructorExtractor = $value;
-
+    
         return $this;
     }
-
+    
     public function __construct(array $value = [])
     {
         if (array_key_exists('enabled', $value)) {
@@ -48,18 +48,18 @@ class PropertyInfoConfig
             $this->enabled = $value['enabled'];
             unset($value['enabled']);
         }
-
+    
         if (array_key_exists('with_constructor_extractor', $value)) {
             $this->_usedProperties['withConstructorExtractor'] = true;
             $this->withConstructorExtractor = $value['with_constructor_extractor'];
             unset($value['with_constructor_extractor']);
         }
-
+    
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-
+    
     public function toArray(): array
     {
         $output = [];
@@ -69,7 +69,7 @@ class PropertyInfoConfig
         if (isset($this->_usedProperties['withConstructorExtractor'])) {
             $output['with_constructor_extractor'] = $this->withConstructorExtractor;
         }
-
+    
         return $output;
     }
 

@@ -14,7 +14,7 @@ class ExceptionConfig
     private $statusCode;
     private $logChannel;
     private $_usedProperties = [];
-
+    
     /**
      * The level of log message. Null to let Symfony decide.
      * @default null
@@ -25,10 +25,10 @@ class ExceptionConfig
     {
         $this->_usedProperties['logLevel'] = true;
         $this->logLevel = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * The status code of the response. Null or 0 to let Symfony decide.
      * @default null
@@ -39,10 +39,10 @@ class ExceptionConfig
     {
         $this->_usedProperties['statusCode'] = true;
         $this->statusCode = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * The channel of log message. Null to let Symfony decide.
      * @default null
@@ -53,10 +53,10 @@ class ExceptionConfig
     {
         $this->_usedProperties['logChannel'] = true;
         $this->logChannel = $value;
-
+    
         return $this;
     }
-
+    
     public function __construct(array $value = [])
     {
         if (array_key_exists('log_level', $value)) {
@@ -64,24 +64,24 @@ class ExceptionConfig
             $this->logLevel = $value['log_level'];
             unset($value['log_level']);
         }
-
+    
         if (array_key_exists('status_code', $value)) {
             $this->_usedProperties['statusCode'] = true;
             $this->statusCode = $value['status_code'];
             unset($value['status_code']);
         }
-
+    
         if (array_key_exists('log_channel', $value)) {
             $this->_usedProperties['logChannel'] = true;
             $this->logChannel = $value['log_channel'];
             unset($value['log_channel']);
         }
-
+    
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-
+    
     public function toArray(): array
     {
         $output = [];
@@ -94,7 +94,7 @@ class ExceptionConfig
         if (isset($this->_usedProperties['logChannel'])) {
             $output['log_channel'] = $this->logChannel;
         }
-
+    
         return $output;
     }
 

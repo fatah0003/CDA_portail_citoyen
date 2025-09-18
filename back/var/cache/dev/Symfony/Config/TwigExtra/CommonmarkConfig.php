@@ -22,7 +22,7 @@ class CommonmarkConfig
     private $commonmark;
     private $_usedProperties = [];
     private $_extraKeys;
-
+    
     /**
      * Array of options for rendering HTML.
     */
@@ -34,10 +34,10 @@ class CommonmarkConfig
         } elseif (0 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "renderer()" has already been initialized. You cannot pass values the second time you call renderer().');
         }
-
+    
         return $this->renderer;
     }
-
+    
     /**
      * How to handle HTML input.
      * @default null
@@ -48,10 +48,10 @@ class CommonmarkConfig
     {
         $this->_usedProperties['htmlInput'] = true;
         $this->htmlInput = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * Remove risky link and image URLs by setting this to false.
      * @default true
@@ -62,10 +62,10 @@ class CommonmarkConfig
     {
         $this->_usedProperties['allowUnsafeLinks'] = true;
         $this->allowUnsafeLinks = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * The maximum nesting level for blocks.
      * @default 9223372036854775807
@@ -76,10 +76,10 @@ class CommonmarkConfig
     {
         $this->_usedProperties['maxNestingLevel'] = true;
         $this->maxNestingLevel = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * Array of options for configuring how URL-safe slugs are created.
     */
@@ -91,10 +91,10 @@ class CommonmarkConfig
         } elseif (0 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "slugNormalizer()" has already been initialized. You cannot pass values the second time you call slugNormalizer().');
         }
-
+    
         return $this->slugNormalizer;
     }
-
+    
     /**
      * Array of options for configuring the CommonMark core extension.
     */
@@ -106,10 +106,10 @@ class CommonmarkConfig
         } elseif (0 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "commonmark()" has already been initialized. You cannot pass values the second time you call commonmark().');
         }
-
+    
         return $this->commonmark;
     }
-
+    
     public function __construct(array $value = [])
     {
         if (array_key_exists('renderer', $value)) {
@@ -117,41 +117,41 @@ class CommonmarkConfig
             $this->renderer = new \Symfony\Config\TwigExtra\Commonmark\RendererConfig($value['renderer']);
             unset($value['renderer']);
         }
-
+    
         if (array_key_exists('html_input', $value)) {
             $this->_usedProperties['htmlInput'] = true;
             $this->htmlInput = $value['html_input'];
             unset($value['html_input']);
         }
-
+    
         if (array_key_exists('allow_unsafe_links', $value)) {
             $this->_usedProperties['allowUnsafeLinks'] = true;
             $this->allowUnsafeLinks = $value['allow_unsafe_links'];
             unset($value['allow_unsafe_links']);
         }
-
+    
         if (array_key_exists('max_nesting_level', $value)) {
             $this->_usedProperties['maxNestingLevel'] = true;
             $this->maxNestingLevel = $value['max_nesting_level'];
             unset($value['max_nesting_level']);
         }
-
+    
         if (array_key_exists('slug_normalizer', $value)) {
             $this->_usedProperties['slugNormalizer'] = true;
             $this->slugNormalizer = new \Symfony\Config\TwigExtra\Commonmark\SlugNormalizerConfig($value['slug_normalizer']);
             unset($value['slug_normalizer']);
         }
-
+    
         if (array_key_exists('commonmark', $value)) {
             $this->_usedProperties['commonmark'] = true;
             $this->commonmark = new \Symfony\Config\TwigExtra\Commonmark\CommonmarkConfig($value['commonmark']);
             unset($value['commonmark']);
         }
-
+    
         $this->_extraKeys = $value;
-
+    
     }
-
+    
     public function toArray(): array
     {
         $output = [];
@@ -173,10 +173,10 @@ class CommonmarkConfig
         if (isset($this->_usedProperties['commonmark'])) {
             $output['commonmark'] = $this->commonmark->toArray();
         }
-
+    
         return $output + $this->_extraKeys;
     }
-
+    
     /**
      * @param ParamConfigurator|mixed $value
      *
@@ -185,7 +185,7 @@ class CommonmarkConfig
     public function set(string $key, mixed $value): static
     {
         $this->_extraKeys[$key] = $value;
-
+    
         return $this;
     }
 

@@ -33,15 +33,40 @@
             </tr>
             <tr>
                 <th>Category</th>
-                <td>{% for category in proposition.category %}
+                <td>
+                    {% for category in proposition.category %}
                         {{ category }}<br>
                     {% else %}
                         <em>Aucune catégorie</em>
-                    {% endfor %}</td>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>Fichiers</th>
+                <td>
+                    {% for file in proposition.propositionFiles %}
+                        {% if file.fileName %}
+                            {# Affiche l'image directement si c'est une image #}
+                            {% set ext = file.fileName|split('.')|last|lower %}
+                            {% if ext in ['jpg', 'jpeg', 'png', 'gif', 'webp'] %}
+                                <img src="{{ vich_uploader_asset(file, 'file') }}" 
+                                     alt="{{ file.fileName }}" 
+                                     style="max-width:200px; max-height:200px; display:block; margin-bottom:10px;">
+                            {% else %}
+                                <a href="{{ vich_uploader_asset(file, 'file') }}" target="_blank">
+                                    Télécharger {{ file.fileName }}
+                                </a><br>
+                            {% endif %}
+                        {% endif %}
+                    {% else %}
+                        <em>Aucun fichier</em>
+                    {% endfor %}
+                </td>
             </tr>
         </tbody>
     </table>
-    <td>
+
+    <div>
         <form method="post" action="{{ path('app_favorite_toggle', { id: proposition.id }) }}">
             <input type="hidden" name="_token" value="{{ csrf_token('toggle_favorite' ~ proposition.id) }}">
             <button class="btn btn-outline-primary">
@@ -55,12 +80,9 @@
         </form>
 
         <a href="{{ path('app_proposition_show', {'id': proposition.id}) }}" class="btn btn-secondary mt-1">Voir</a>
-    </td>
-
-
+    </div>
 
     <a href="{{ path('app_proposition_index') }}">back to list</a>
-
     <a href="{{ path('app_proposition_edit', {'id': proposition.id}) }}">edit</a>
 
     {{ include('proposition/_delete_form.html.twig') }}

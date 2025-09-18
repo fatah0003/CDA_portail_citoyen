@@ -17,7 +17,7 @@ class DkimSignerConfig
     private $passphrase;
     private $options;
     private $_usedProperties = [];
-
+    
     /**
      * @default false
      * @param ParamConfigurator|bool $value
@@ -27,10 +27,10 @@ class DkimSignerConfig
     {
         $this->_usedProperties['enabled'] = true;
         $this->enabled = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * Key content, or path to key (in PEM format with the `file://` prefix)
      * @param ParamConfigurator|mixed $value
@@ -40,10 +40,10 @@ class DkimSignerConfig
     {
         $this->_usedProperties['key'] = true;
         $this->key = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * @param ParamConfigurator|mixed $value
      * @return $this
@@ -52,10 +52,10 @@ class DkimSignerConfig
     {
         $this->_usedProperties['domain'] = true;
         $this->domain = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * @param ParamConfigurator|mixed $value
      * @return $this
@@ -64,10 +64,10 @@ class DkimSignerConfig
     {
         $this->_usedProperties['select'] = true;
         $this->select = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * The private key passphrase
      * @param ParamConfigurator|mixed $value
@@ -77,10 +77,10 @@ class DkimSignerConfig
     {
         $this->_usedProperties['passphrase'] = true;
         $this->passphrase = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * @return $this
      */
@@ -88,10 +88,10 @@ class DkimSignerConfig
     {
         $this->_usedProperties['options'] = true;
         $this->options[$name] = $value;
-
+    
         return $this;
     }
-
+    
     public function __construct(array $value = [])
     {
         if (array_key_exists('enabled', $value)) {
@@ -99,42 +99,42 @@ class DkimSignerConfig
             $this->enabled = $value['enabled'];
             unset($value['enabled']);
         }
-
+    
         if (array_key_exists('key', $value)) {
             $this->_usedProperties['key'] = true;
             $this->key = $value['key'];
             unset($value['key']);
         }
-
+    
         if (array_key_exists('domain', $value)) {
             $this->_usedProperties['domain'] = true;
             $this->domain = $value['domain'];
             unset($value['domain']);
         }
-
+    
         if (array_key_exists('select', $value)) {
             $this->_usedProperties['select'] = true;
             $this->select = $value['select'];
             unset($value['select']);
         }
-
+    
         if (array_key_exists('passphrase', $value)) {
             $this->_usedProperties['passphrase'] = true;
             $this->passphrase = $value['passphrase'];
             unset($value['passphrase']);
         }
-
+    
         if (array_key_exists('options', $value)) {
             $this->_usedProperties['options'] = true;
             $this->options = $value['options'];
             unset($value['options']);
         }
-
+    
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-
+    
     public function toArray(): array
     {
         $output = [];
@@ -156,7 +156,7 @@ class DkimSignerConfig
         if (isset($this->_usedProperties['options'])) {
             $output['options'] = $this->options;
         }
-
+    
         return $output;
     }
 

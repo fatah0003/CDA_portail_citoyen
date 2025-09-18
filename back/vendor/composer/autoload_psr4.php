@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src', $vendorDir . '/phpdocumentor/reflection-common/src'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
+    'Vich\\UploaderBundle\\' => array($vendorDir . '/vich/uploader-bundle/src'),
     'Twig\\Extra\\TwigExtraBundle\\' => array($vendorDir . '/twig/extra-bundle'),
     'Twig\\' => array($vendorDir . '/twig/twig/src'),
     'Symfony\\UX\\Turbo\\' => array($vendorDir . '/symfony/ux-turbo/src'),
@@ -91,6 +92,7 @@ return array(
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'PHPStan\\PhpDocParser\\' => array($vendorDir . '/phpstan/phpdoc-parser/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+    'Metadata\\' => array($vendorDir . '/jms/metadata/src'),
     'Masterminds\\' => array($vendorDir . '/masterminds/html5/src'),
     'Egulias\\EmailValidator\\' => array($vendorDir . '/egulias/email-validator/src'),
     'Doctrine\\SqlFormatter\\' => array($vendorDir . '/doctrine/sql-formatter/src'),

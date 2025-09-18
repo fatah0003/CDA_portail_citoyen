@@ -17,7 +17,7 @@ class SmimeSignerConfig
     private $extraCertificates;
     private $signOptions;
     private $_usedProperties = [];
-
+    
     /**
      * @default false
      * @param ParamConfigurator|bool $value
@@ -27,10 +27,10 @@ class SmimeSignerConfig
     {
         $this->_usedProperties['enabled'] = true;
         $this->enabled = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * Path to key (in PEM format)
      * @param ParamConfigurator|mixed $value
@@ -40,10 +40,10 @@ class SmimeSignerConfig
     {
         $this->_usedProperties['key'] = true;
         $this->key = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * Path to certificate (in PEM format without the `file://` prefix)
      * @param ParamConfigurator|mixed $value
@@ -53,10 +53,10 @@ class SmimeSignerConfig
     {
         $this->_usedProperties['certificate'] = true;
         $this->certificate = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * The private key passphrase
      * @default null
@@ -67,10 +67,10 @@ class SmimeSignerConfig
     {
         $this->_usedProperties['passphrase'] = true;
         $this->passphrase = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -80,10 +80,10 @@ class SmimeSignerConfig
     {
         $this->_usedProperties['extraCertificates'] = true;
         $this->extraCertificates = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * @default null
      * @param ParamConfigurator|int $value
@@ -93,10 +93,10 @@ class SmimeSignerConfig
     {
         $this->_usedProperties['signOptions'] = true;
         $this->signOptions = $value;
-
+    
         return $this;
     }
-
+    
     public function __construct(array $value = [])
     {
         if (array_key_exists('enabled', $value)) {
@@ -104,42 +104,42 @@ class SmimeSignerConfig
             $this->enabled = $value['enabled'];
             unset($value['enabled']);
         }
-
+    
         if (array_key_exists('key', $value)) {
             $this->_usedProperties['key'] = true;
             $this->key = $value['key'];
             unset($value['key']);
         }
-
+    
         if (array_key_exists('certificate', $value)) {
             $this->_usedProperties['certificate'] = true;
             $this->certificate = $value['certificate'];
             unset($value['certificate']);
         }
-
+    
         if (array_key_exists('passphrase', $value)) {
             $this->_usedProperties['passphrase'] = true;
             $this->passphrase = $value['passphrase'];
             unset($value['passphrase']);
         }
-
+    
         if (array_key_exists('extra_certificates', $value)) {
             $this->_usedProperties['extraCertificates'] = true;
             $this->extraCertificates = $value['extra_certificates'];
             unset($value['extra_certificates']);
         }
-
+    
         if (array_key_exists('sign_options', $value)) {
             $this->_usedProperties['signOptions'] = true;
             $this->signOptions = $value['sign_options'];
             unset($value['sign_options']);
         }
-
+    
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-
+    
     public function toArray(): array
     {
         $output = [];
@@ -161,7 +161,7 @@ class SmimeSignerConfig
         if (isset($this->_usedProperties['signOptions'])) {
             $output['sign_options'] = $this->signOptions;
         }
-
+    
         return $output;
     }
 

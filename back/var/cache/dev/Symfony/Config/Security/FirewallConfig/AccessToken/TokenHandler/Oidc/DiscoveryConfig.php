@@ -15,7 +15,7 @@ class DiscoveryConfig
     private $baseUri;
     private $cache;
     private $_usedProperties = [];
-
+    
     /**
      * Base URI of the OIDC server.
      * @default null
@@ -26,10 +26,10 @@ class DiscoveryConfig
     {
         $this->_usedProperties['baseUri'] = true;
         $this->baseUri = $value;
-
+    
         return $this;
     }
-
+    
     public function cache(array $value = []): \Symfony\Config\Security\FirewallConfig\AccessToken\TokenHandler\Oidc\Discovery\CacheConfig
     {
         if (null === $this->cache) {
@@ -38,10 +38,10 @@ class DiscoveryConfig
         } elseif (0 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "cache()" has already been initialized. You cannot pass values the second time you call cache().');
         }
-
+    
         return $this->cache;
     }
-
+    
     public function __construct(array $value = [])
     {
         if (array_key_exists('base_uri', $value)) {
@@ -49,18 +49,18 @@ class DiscoveryConfig
             $this->baseUri = $value['base_uri'];
             unset($value['base_uri']);
         }
-
+    
         if (array_key_exists('cache', $value)) {
             $this->_usedProperties['cache'] = true;
             $this->cache = new \Symfony\Config\Security\FirewallConfig\AccessToken\TokenHandler\Oidc\Discovery\CacheConfig($value['cache']);
             unset($value['cache']);
         }
-
+    
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-
+    
     public function toArray(): array
     {
         $output = [];
@@ -70,7 +70,7 @@ class DiscoveryConfig
         if (isset($this->_usedProperties['cache'])) {
             $output['cache'] = $this->cache->toArray();
         }
-
+    
         return $output;
     }
 

@@ -14,7 +14,7 @@ class SmimeEncrypterConfig
     private $repository;
     private $cipher;
     private $_usedProperties = [];
-
+    
     /**
      * @default false
      * @param ParamConfigurator|bool $value
@@ -24,10 +24,10 @@ class SmimeEncrypterConfig
     {
         $this->_usedProperties['enabled'] = true;
         $this->enabled = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * S/MIME certificate repository service. This service shall implement the `Symfony\Component\Mailer\EventListener\SmimeCertificateRepositoryInterface`.
      * @param ParamConfigurator|mixed $value
@@ -37,10 +37,10 @@ class SmimeEncrypterConfig
     {
         $this->_usedProperties['repository'] = true;
         $this->repository = $value;
-
+    
         return $this;
     }
-
+    
     /**
      * A set of algorithms used to encrypt the message
      * @default null
@@ -51,10 +51,10 @@ class SmimeEncrypterConfig
     {
         $this->_usedProperties['cipher'] = true;
         $this->cipher = $value;
-
+    
         return $this;
     }
-
+    
     public function __construct(array $value = [])
     {
         if (array_key_exists('enabled', $value)) {
@@ -62,24 +62,24 @@ class SmimeEncrypterConfig
             $this->enabled = $value['enabled'];
             unset($value['enabled']);
         }
-
+    
         if (array_key_exists('repository', $value)) {
             $this->_usedProperties['repository'] = true;
             $this->repository = $value['repository'];
             unset($value['repository']);
         }
-
+    
         if (array_key_exists('cipher', $value)) {
             $this->_usedProperties['cipher'] = true;
             $this->cipher = $value['cipher'];
             unset($value['cipher']);
         }
-
+    
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-
+    
     public function toArray(): array
     {
         $output = [];
@@ -92,7 +92,7 @@ class SmimeEncrypterConfig
         if (isset($this->_usedProperties['cipher'])) {
             $output['cipher'] = $this->cipher;
         }
-
+    
         return $output;
     }
 
