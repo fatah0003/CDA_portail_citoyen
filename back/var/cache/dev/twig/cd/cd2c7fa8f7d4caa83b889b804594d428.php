@@ -125,6 +125,6 @@ class __TwigTemplate_963eccef39b776acd43b625991262812 extends Template
 
     </div>
 </section>
-", "_partials/homePage/_about.html.twig", "C:\\Users\\lilyb\\Documents\\projetGroup\\CDA_portail_citoyen\\back\\templates\\_partials\\homePage\\_about.html.twig");
+", "_partials/homePage/_about.html.twig", "C:\\Users\\lilyb\\Documents\\doc\\CDA_portail_citoyen\\back\\templates\\_partials\\homePage\\_about.html.twig");
     }
 }

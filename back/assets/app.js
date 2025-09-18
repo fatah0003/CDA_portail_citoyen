@@ -12,3 +12,4 @@ import './styles/homePage/banner.css';
 import './styles/homePage/_about.css';
 import './styles/homePage/_partner.css';
 import './styles/homePage/_functionnality.css';
+import './styles/propositions/_propositions.css';

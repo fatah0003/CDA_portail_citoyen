@@ -105,6 +105,6 @@ class __TwigTemplate_f959e57a4622bb4cea16887ff3eba4b6 extends Template
     <img src=\"{{ asset('pictures/kem_digital.jpg') }}\" alt=\"Portrait\">
     <img src=\"{{ asset('pictures/selangor.jpg') }}\" alt=\"Portrait\">
 </section>
-", "_partials/homePage/_partner.html.twig", "C:\\Users\\lilyb\\Documents\\projetGroup\\CDA_portail_citoyen\\back\\templates\\_partials\\homePage\\_partner.html.twig");
+", "_partials/homePage/_partner.html.twig", "C:\\Users\\lilyb\\Documents\\doc\\CDA_portail_citoyen\\back\\templates\\_partials\\homePage\\_partner.html.twig");
     }
 }

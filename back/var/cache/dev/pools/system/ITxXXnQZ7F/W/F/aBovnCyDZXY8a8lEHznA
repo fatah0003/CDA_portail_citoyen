@@ -1,0 +1,3 @@
+<?php //639c17f58914e56b3ca26c850d022142
+
+return [PHP_INT_MAX, 'styles/propositions/_propositions.css'];

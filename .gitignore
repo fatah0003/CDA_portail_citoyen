@@ -20,4 +20,4 @@
 ###< symfony/asset-mapper ###
 .idea/
 /public/uploads
- 
+ /back/var/

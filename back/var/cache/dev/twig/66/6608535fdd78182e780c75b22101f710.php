@@ -155,6 +155,6 @@ class __TwigTemplate_b8fb4db0c63ce3d6987ff0f223a104d5 extends Template
 
     <a href=\"{{ path('app_proposition_index') }}\">back to list</a>
 {% endblock %}
-", "proposition/new.html.twig", "C:\\Users\\lilyb\\Documents\\projetGroup\\CDA_portail_citoyen\\back\\templates\\proposition\\new.html.twig");
+", "proposition/new.html.twig", "C:\\Users\\lilyb\\Documents\\doc\\CDA_portail_citoyen\\back\\templates\\proposition\\new.html.twig");
     }
 }

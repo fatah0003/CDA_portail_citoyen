@@ -316,6 +316,6 @@ class __TwigTemplate_b22157b77ffee36062b091eddb020699 extends Template
 
     {{ form_end(registrationForm) }}
 {% endblock %}
-", "registration/register.html.twig", "C:\\Users\\lilyb\\Documents\\projetGroup\\CDA_portail_citoyen\\back\\templates\\registration\\register.html.twig");
+", "registration/register.html.twig", "C:\\Users\\lilyb\\Documents\\doc\\CDA_portail_citoyen\\back\\templates\\registration\\register.html.twig");
     }
 }

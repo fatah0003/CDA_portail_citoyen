@@ -1,89 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Proposition{% endblock %}
+{% block title %}{{ proposition.title }}{% endblock %}
 
 {% block body %}
-    <h1>Proposition</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ proposition.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ proposition.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ proposition.description }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ proposition.createdAt ? proposition.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ proposition.updatedAt ? proposition.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ proposition.status.value }}</td>
-            </tr>
-            <tr>
-                <th>Category</th>
-                <td>
-                    {% for category in proposition.category %}
-                        {{ category }}<br>
-                    {% else %}
-                        <em>Aucune catégorie</em>
-                    {% endfor %}
-                </td>
-            </tr>
-            <tr>
-                <th>Fichiers</th>
-                <td>
-                    {% for file in proposition.propositionFiles %}
-                        {% if file.fileName %}
-                            {# Affiche l'image directement si c'est une image #}
-                            {% set ext = file.fileName|split('.')|last|lower %}
-                            {% if ext in ['jpg', 'jpeg', 'png', 'gif', 'webp'] %}
-                                <img src="{{ vich_uploader_asset(file, 'file') }}" 
-                                     alt="{{ file.fileName }}" 
-                                     style="max-width:200px; max-height:200px; display:block; margin-bottom:10px;">
-                            {% else %}
-                                <a href="{{ vich_uploader_asset(file, 'file') }}" target="_blank">
-                                    Télécharger {{ file.fileName }}
-                                </a><br>
-                            {% endif %}
-                        {% endif %}
-                    {% else %}
-                        <em>Aucun fichier</em>
-                    {% endfor %}
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div>
-        <form method="post" action="{{ path('app_favorite_toggle', { id: proposition.id }) }}">
-            <input type="hidden" name="_token" value="{{ csrf_token('toggle_favorite' ~ proposition.id) }}">
-            <button class="btn btn-outline-primary">
-                {% if proposition.isFavoritedBy(app.user) %}
-                    Retirer des favoris
+<div class="proposition-card">
+    <!-- Colonne gauche : Images -->
+    <div class="proposition-images">
+        {% for file in proposition.propositionFiles %}
+            {% if file.fileName %}
+                {% set ext = file.fileName|split('.')|last|lower %}
+                {% if ext in ['jpg', 'jpeg', 'png', 'gif', 'webp'] %}
+                    <img src="{{ vich_uploader_asset(file, 'file') }}" 
+                         alt="{{ file.fileName }}">
                 {% else %}
-                    Ajouter aux favoris
+                    <a href="{{ vich_uploader_asset(file, 'file') }}" target="_blank">
+                        📎 Télécharger {{ file.fileName }}
+                    </a>
                 {% endif %}
-            </button>
-            <span class="ms-2">❤️ {{ proposition.getFavoritesCount() }}</span>
-        </form>
-
-        <a href="{{ path('app_proposition_show', {'id': proposition.id}) }}" class="btn btn-secondary mt-1">Voir</a>
+            {% endif %}
+        {% else %}
+            <em>Aucun fichier</em>
+        {% endfor %}
     </div>
 
-    <a href="{{ path('app_proposition_index') }}">back to list</a>
-    <a href="{{ path('app_proposition_edit', {'id': proposition.id}) }}">edit</a>
+    <!-- Colonne droite : Infos -->
+    <div class="proposition-info">
+        <h1>{{ proposition.title }}</h1>
+        <p class="description">{{ proposition.description }}</p>
 
-    {{ include('proposition/_delete_form.html.twig') }}
+        <p class="meta">
+            <strong>ID :</strong> {{ proposition.id }}<br>
+            <strong>Créé le :</strong> {{ proposition.createdAt ? proposition.createdAt|date('d/m/Y H:i') : '' }}<br>
+            <strong>Mise à jour :</strong> {{ proposition.updatedAt ? proposition.updatedAt|date('d/m/Y H:i') : '' }}<br>
+            <strong>Catégories :</strong>
+            {% for category in proposition.category %}
+                {{ category }}{% if not loop.last %}, {% endif %}
+            {% else %}
+                <em>Aucune</em>
+            {% endfor %}
+        </p>
+
+        <p class="status">
+            Statut : {{ proposition.status.value }}
+        </p>
+
+        <!-- Actions -->
+        <div class="proposition-actions">
+            <form method="post" action="{{ path('app_favorite_toggle', { id: proposition.id }) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('toggle_favorite' ~ proposition.id) }}">
+                <button class="btn-primary-amz">
+                    {% if proposition.isFavoritedBy(app.user) %}
+                        Retirer des favoris ❤️
+                    {% else %}
+                        Ajouter aux favoris ❤️
+                    {% endif %}
+                </button>
+                <span class="ms-2">❤️ {{ proposition.getFavoritesCount() }}</span>
+            </form>
+
+            <a href="{{ path('app_proposition_edit', {'id': proposition.id}) }}" class="btn-secondary-amz">✏️ Modifier</a>
+            <a href="{{ path('app_proposition_index') }}" class="btn-secondary-amz">⬅️ Retour à la liste</a>
+
+            {{ include('proposition/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
 {% endblock %}

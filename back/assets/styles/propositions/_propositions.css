@@ -1,0 +1,119 @@
+/* Conteneur principal */
+.proposition-card {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+/* Colonne gauche (images) */
+.proposition-images {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.proposition-images img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+/* Colonne droite (infos) */
+.proposition-info h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #111;
+}
+
+.proposition-info .description {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.proposition-info .meta {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.proposition-info .status {
+    font-weight: bold;
+    color: green;
+    margin-bottom: 15px;
+}
+
+/* Bloc boutons façon Amazon */
+.proposition-actions {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btn-primary-amz {
+    background: #ffa41c;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #111;
+    transition: background 0.2s;
+}
+
+.btn-primary-amz:hover {
+    background: #f90;
+}
+
+.btn-secondary-amz {
+    background: #f0f2f2;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #111;
+    transition: background 0.2s;
+}
+
+.btn-secondary-amz:hover {
+    background: #e2e5e5;
+}
+
+h1  {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #111;
+    justify-self: center;
+    margin-top: 30px;
+}
+
+
+/* Responsive mobile */
+@media (max-width: 768px) {
+    .proposition-card {
+        grid-template-columns: 1fr;
+    }
+
+    .proposition-images {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .proposition-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
