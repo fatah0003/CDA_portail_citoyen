@@ -153,17 +153,25 @@ class __TwigTemplate_2dc5d57e008b960b75a929bb93d2dee3 extends Template
         yield from $this->unwrap()->yieldBlock('importmap', $context, $blocks);
         // line 48
         yield "    <script>
-        document.addEventListener(\"DOMContentLoaded\", () => {
-            const burger = document.querySelector(\".burger\");
-            const menuNav = document.querySelector(\".menu-nav\");
+        document.addEventListener('DOMContentLoaded', () => {
+            const burger = document.querySelector('.burger-menu');
+            const menu = document.querySelector('.menu-nav');
 
-            if (burger && menuNav) {
-                burger.addEventListener(\"click\", () => {
-                    menuNav.classList.toggle(\"active\");
+            if (burger && menu) {
+                burger.addEventListener('click', () => {
+                    // toggle le menu
+                    if (menu.style.display === 'flex') {
+                        menu.style.display = 'none';
+                    } else {
+                        menu.style.display = 'flex';
+                        menu.style.flexDirection = 'column';
+                        menu.style.alignItems = 'center';
+                    }
                 });
             }
         });
     </script>
+
     <script>
         let hideTimeout;
 
@@ -248,7 +256,7 @@ class __TwigTemplate_2dc5d57e008b960b75a929bb93d2dee3 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  208 => 47,  155 => 48,  152 => 47,  129 => 46,  119 => 38,  113 => 36,  106 => 32,  97 => 28,  93 => 26,  91 => 25,  84 => 21,  80 => 20,  72 => 15,  59 => 5,  55 => 4,  50 => 1,);
+        return array (  216 => 47,  155 => 48,  152 => 47,  129 => 46,  119 => 38,  113 => 36,  106 => 32,  97 => 28,  93 => 26,  91 => 25,  84 => 21,  80 => 20,  72 => 15,  59 => 5,  55 => 4,  50 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -301,17 +309,25 @@ class __TwigTemplate_2dc5d57e008b960b75a929bb93d2dee3 extends Template
 {% block javascripts %}
     {% block importmap %}{{ importmap('app') }}{% endblock %}
     <script>
-        document.addEventListener(\"DOMContentLoaded\", () => {
-            const burger = document.querySelector(\".burger\");
-            const menuNav = document.querySelector(\".menu-nav\");
+        document.addEventListener('DOMContentLoaded', () => {
+            const burger = document.querySelector('.burger-menu');
+            const menu = document.querySelector('.menu-nav');
 
-            if (burger && menuNav) {
-                burger.addEventListener(\"click\", () => {
-                    menuNav.classList.toggle(\"active\");
+            if (burger && menu) {
+                burger.addEventListener('click', () => {
+                    // toggle le menu
+                    if (menu.style.display === 'flex') {
+                        menu.style.display = 'none';
+                    } else {
+                        menu.style.display = 'flex';
+                        menu.style.flexDirection = 'column';
+                        menu.style.alignItems = 'center';
+                    }
                 });
             }
         });
     </script>
+
     <script>
         let hideTimeout;
 

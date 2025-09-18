@@ -46,17 +46,25 @@
 {% block javascripts %}
     {% block importmap %}{{ importmap('app') }}{% endblock %}
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const burger = document.querySelector(".burger");
-            const menuNav = document.querySelector(".menu-nav");
+        document.addEventListener('DOMContentLoaded', () => {
+            const burger = document.querySelector('.burger-menu');
+            const menu = document.querySelector('.menu-nav');
 
-            if (burger && menuNav) {
-                burger.addEventListener("click", () => {
-                    menuNav.classList.toggle("active");
+            if (burger && menu) {
+                burger.addEventListener('click', () => {
+                    // toggle le menu
+                    if (menu.style.display === 'flex') {
+                        menu.style.display = 'none';
+                    } else {
+                        menu.style.display = 'flex';
+                        menu.style.flexDirection = 'column';
+                        menu.style.alignItems = 'center';
+                    }
                 });
             }
         });
     </script>
+
     <script>
         let hideTimeout;
 
