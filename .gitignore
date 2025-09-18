@@ -22,3 +22,4 @@
 /public/uploads
  /back/var/
 /back/var/cache/
+.env.local
