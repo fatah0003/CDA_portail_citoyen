@@ -1,53 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Proposition index{% endblock %}
+{% block title %}Propositions{% endblock %}
 
 {% block body %}
-    <h1>Proposition index</h1>
+<h1>Propositions</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>Status</th>
-                <th>Category</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for proposition in propositions %}
-            <tr>
-                <td>{{ proposition.id }}</td>
-                <td>{{ proposition.title }}</td>
-                <td>{{ proposition.description }}</td>
-                <td>{{ proposition.createdAt ? proposition.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ proposition.updatedAt ? proposition.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ proposition.status.value }}</td>
-                <td>{% for category in proposition.category %}
-                        {{ category }}
+<div class="proposition-list">
+    {% for proposition in propositions %}
+        <div class="proposition-card">
+            
+            <!-- Colonne gauche : image si dispo -->
+            <div class="proposition-images">
+                {% if proposition.propositionFiles|length > 0 %}
+                    {% set firstFile = proposition.propositionFiles|first %}
+                    {% set ext = firstFile.fileName|split('.')|last|lower %}
+                    {% if ext in ['jpg', 'jpeg', 'png', 'gif', 'webp'] %}
+                        <img src="{{ vich_uploader_asset(firstFile, 'file') }}" alt="{{ firstFile.fileName }}">
                     {% else %}
-                        <em>Aucune catégorie</em>
-                    {% endfor %}</td>
-                <td>
-                    <a href="{{ path('app_proposition_show', {'id': proposition.id}) }}">show</a>
-                    <a href="{{ path('app_proposition_edit', {'id': proposition.id}) }}">edit</a>
-                </td>
-            </tr>
-            <td>
-                <span class="ms-2">❤️ {{ proposition.getFavoritesCount() }}</span>
-            </td>
+                        <div class="file-placeholder">📎</div>
+                    {% endif %}
+                {% else %}
+                    <div class="file-placeholder">📷</div>
+                {% endif %}
+            </div>
 
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <!-- Colonne droite : infos -->
+            <div class="proposition-info">
+                <h2>{{ proposition.title }}</h2>
+                <p class="description">
+                    {{ proposition.description|length > 120 ? proposition.description|slice(0, 120) ~ '...' : proposition.description }}
+                </p>
 
-    <a href="{{ path('app_proposition_new') }}">Create new</a>
+                <p class="meta">
+                    Créé le {{ proposition.createdAt ? proposition.createdAt|date('d/m/Y') : '-' }}<br>
+                    Catégories : 
+                    {% for category in proposition.category %}
+                        {{ category }}{% if not loop.last %}, {% endif %}
+                    {% else %}
+                        <em>Aucune</em>
+                    {% endfor %}
+                </p>
+
+                <p class="status">
+                    {{ proposition.status.value }}
+                </p>
+
+                <!-- Actions -->
+                <div class="proposition-actions">
+                    <a href="{{ path('app_proposition_show', {'id': proposition.id}) }}" class="btn-primary-amz">Voir</a>
+                    <a href="{{ path('app_proposition_edit', {'id': proposition.id}) }}" class="btn-secondary-amz">Modifier</a>
+                </div>
+
+                <div class="favorites">
+                    ❤️ {{ proposition.getFavoritesCount() }}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p>Aucune proposition trouvée.</p>
+    {% endfor %}
+</div>
+
+<a href="{{ path('app_proposition_new') }}" class="btn-primary-amz">➕ Créer une nouvelle proposition</a>
 {% endblock %}

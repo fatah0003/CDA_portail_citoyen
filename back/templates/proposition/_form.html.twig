@@ -1,4 +1,59 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'enctype':'multipart/form-data'}}) }}
+
+{{ form_row(form.title) }}
+{{ form_row(form.description) }}
+{{ form_row(form.status) }}
+{{ form_row(form.category) }}
+
+<h3>Fichiers</h3>
+<div id="propositionFiles" data-prototype="{{ form_widget(form.propositionFiles.vars.prototype)|e('html_attr') }}">
+    {% for fileForm in form.propositionFiles %}
+        <div class="file-item">
+            {% if fileForm.vars.data.fileName %}
+                <p>Fichier actuel : {{ fileForm.vars.data.fileName }}</p>
+            {% endif %}
+            {{ form_row(fileForm.file) }}
+            <button type="button" class="btn btn-danger remove-file">Supprimer</button>
+        </div>
+    {% endfor %}
+</div>
+<button type="button" id="add-file" class="btn btn-secondary">Ajouter un fichier</button>
+
+<br><br>
+<button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+
 {{ form_end(form) }}
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const collectionHolder = document.getElementById('propositionFiles');
+    const addButton = document.getElementById('add-file');
+    let index = collectionHolder.querySelectorAll('.file-item').length;
+
+    addButton.addEventListener('click', () => {
+        const prototype = collectionHolder.dataset.prototype;
+        const newForm = prototype.replace(/__name__/g, index);
+        index++;
+
+        const div = document.createElement('div');
+        div.classList.add('file-item');
+        div.innerHTML = newForm;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'btn btn-danger remove-file';
+        removeBtn.textContent = 'Supprimer';
+        div.appendChild(removeBtn);
+
+        collectionHolder.appendChild(div);
+
+        removeBtn.addEventListener('click', () => div.remove());
+    });
+
+    collectionHolder.querySelectorAll('.remove-file').forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.target.closest('.file-item').remove();
+        });
+    });
+});
+</script>
