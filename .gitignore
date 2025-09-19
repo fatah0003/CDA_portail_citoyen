@@ -23,3 +23,5 @@
  /back/var/
 /back/var/cache/
 .env.local
+/var/log/*.log
+back/var/log/*

@@ -1,4 +1,6 @@
-/* Conteneur principal */
+/* ==========================
+   Conteneur principal
+========================== */
 .proposition-card {
     max-width: 900px;
     margin: 20px auto;
@@ -12,7 +14,6 @@
     gap: 20px;
 }
 
-/* Colonne gauche (images) */
 .proposition-images {
     display: flex;
     flex-direction: column;
@@ -27,7 +28,6 @@
     border-radius: 8px;
 }
 
-/* Colonne droite (infos) */
 .proposition-info h1 {
     font-size: 1.8rem;
     margin-bottom: 10px;
@@ -53,7 +53,17 @@
     margin-bottom: 15px;
 }
 
-/* Bloc boutons façon Amazon */
+h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #111;
+    justify-self: center;
+    margin-top: 30px;
+}
+
+/* ==========================
+   Boutons façon Amazon
+========================== */
 .proposition-actions {
     margin-top: 15px;
     display: flex;
@@ -63,13 +73,14 @@
 
 .btn-primary-amz {
     background: #ffa41c;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
     color: #111;
+    font-weight: bold;
+    padding: 12px 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
     transition: background 0.2s;
+    text-decoration: none;
 }
 
 .btn-primary-amz:hover {
@@ -78,29 +89,134 @@
 
 .btn-secondary-amz {
     background: #f0f2f2;
-    border: 1px solid #ddd;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
     color: #111;
+    font-weight: bold;
+    padding: 12px 18px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    cursor: pointer;
     transition: background 0.2s;
+    text-decoration: none;
 }
 
 .btn-secondary-amz:hover {
     background: #e2e5e5;
 }
 
-h1  {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-    color: #111;
-    justify-self: center;
-    margin-top: 30px;
+/* ==========================
+   Cartes formulaire
+========================== */
+.new-proposition-card,
+.edit-proposition-card {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 40px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
+.new-proposition-card .page-title,
+.edit-proposition-card h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #111;
+}
 
-/* Responsive mobile */
+.proposition-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #111;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.checkbox-group label {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* ==========================
+   Section fichiers
+========================== */
+.file-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    position: relative;
+}
+
+.file-item .btn-danger {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#propositionFiles {
+    margin-top: 20px;
+}
+
+#add-file {
+    margin-bottom: 20px;
+}
+
+#propositionFiles .form-group {
+    margin-bottom: 10px;
+}
+
+/* ==========================
+   Textarea spécifique
+========================== */
+textarea.input-form {
+    width: 100%;
+    max-width: 560px;
+    height: 166px;
+    resize: vertical;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* ==========================
+   Responsive
+========================== */
 @media (max-width: 768px) {
     .proposition-card {
         grid-template-columns: 1fr;
@@ -112,8 +228,36 @@ h1  {
         justify-content: center;
     }
 
+    .new-proposition-card,
+    .edit-proposition-card {
+        padding: 25px;
+        margin: 30px 15px;
+    }
+
+    .checkbox-group {
+        flex-direction: column;
+    }
+
     .proposition-actions {
         flex-direction: column;
         align-items: stretch;
+        gap: 10px;
+    }
+
+    .btn-secondary-amz,
+    .btn-primary-amz {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .file-item {
+        padding: 10px;
+    }
+    .file-item .btn-danger {
+        top: auto;
+        bottom: 10px;
+        right: 10px;
     }
 }
