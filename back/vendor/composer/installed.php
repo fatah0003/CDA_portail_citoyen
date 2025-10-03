@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '1033ce765111e3bf60f41a1153a99920eb628e77',
+        'reference' => '4d00af9cdf1d046b4d69a1284568764afd70eb4e',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '1033ce765111e3bf60f41a1153a99920eb628e77',
+            'reference' => '4d00af9cdf1d046b4d69a1284568764afd70eb4e',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -127,6 +127,24 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'doctrine/mongodb-odm' => array(
+            'pretty_version' => '2.12.2',
+            'version' => '2.12.2.0',
+            'reference' => '7abdc70f9cabbc44dae0771467dc603acad2797e',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../doctrine/mongodb-odm',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'doctrine/mongodb-odm-bundle' => array(
+            'pretty_version' => '5.4.1',
+            'version' => '5.4.1.0',
+            'reference' => '739c432ca8bdd10892a7df65602a8b79d7205bbd',
+            'type' => 'symfony-bundle',
+            'install_path' => __DIR__ . '/../doctrine/mongodb-odm-bundle',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'doctrine/orm' => array(
             'pretty_version' => '3.4.2',
             'version' => '3.4.2.0',
@@ -163,6 +181,33 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'friendsofphp/proxy-manager-lts' => array(
+            'pretty_version' => 'v1.0.18',
+            'version' => '1.0.18.0',
+            'reference' => '2c8a6cffc3220e99352ad958fe7cf06bf6f7690f',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../friendsofphp/proxy-manager-lts',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'jean85/pretty-package-versions' => array(
+            'pretty_version' => '2.1.1',
+            'version' => '2.1.1.0',
+            'reference' => '4d7aa5dab42e2a76d99559706022885de0e18e1a',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../jean85/pretty-package-versions',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'laminas/laminas-code' => array(
+            'pretty_version' => '4.16.0',
+            'version' => '4.16.0.0',
+            'reference' => '1793e78dad4108b594084d05d1fb818b85b110af',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laminas/laminas-code',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'masterminds/html5' => array(
             'pretty_version' => '2.9.0',
             'version' => '2.9.0.0',
@@ -171,6 +216,21 @@
             'install_path' => __DIR__ . '/../masterminds/html5',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'mongodb/builder' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => '*',
+            ),
+        ),
+        'mongodb/mongodb' => array(
+            'pretty_version' => '2.1.1',
+            'version' => '2.1.1.0',
+            'reference' => 'f399d24905dd42f97dfe0af9706129743ef247ac',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mongodb/mongodb',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'monolog/monolog' => array(
             'pretty_version' => '3.9.0',
@@ -207,6 +267,12 @@
             'install_path' => __DIR__ . '/../nikic/php-parser',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'ocramius/proxy-manager' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => '^2.1',
+            ),
         ),
         'phar-io/manifest' => array(
             'pretty_version' => '2.0.4',
@@ -421,8 +487,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0|3.0',
-                1 => '3.0.0',
+                0 => '3.0.0',
+                1 => '1.0|2.0|3.0',
             ),
         ),
         'psr/simple-cache-implementation' => array(
@@ -1034,6 +1100,15 @@
             'reference' => '000df7860439609837bbe28670b0be15783b7fbf',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-php84',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'symfony/polyfill-php85' => array(
+            'pretty_version' => 'v1.33.0',
+            'version' => '1.33.0.0',
+            'reference' => 'd4e5fcd4ab3d998ab16c0db48e6cbb9a01993f91',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/polyfill-php85',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
