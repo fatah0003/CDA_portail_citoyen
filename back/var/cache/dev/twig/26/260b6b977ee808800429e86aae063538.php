@@ -181,16 +181,16 @@ class __TwigTemplate_26632a55436a606251b150c1c033fdcc extends Template
         // line 46
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken(("toggle_favorite" . CoreExtension::getAttribute($this->env, $this->source, (isset($context["proposition"]) || array_key_exists("proposition", $context) ? $context["proposition"] : (function () { throw new RuntimeError('Variable "proposition" does not exist.', 46, $this->source); })()), "id", [], "any", false, false, false, 46))), "html", null, true);
         yield "\">
-            <button class=\"btn btn-outline-primary\">
+            <button class=\"btn-primary-amz\">
                 ";
         // line 48
-        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["proposition"]) || array_key_exists("proposition", $context) ? $context["proposition"] : (function () { throw new RuntimeError('Variable "proposition" does not exist.', 48, $this->source); })()), "isFavoritedBy", [CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 48, $this->source); })()), "user", [], "any", false, false, false, 48)], "method", false, false, false, 48)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 48, $this->source); })()), "user", [], "any", false, false, false, 48) && CoreExtension::getAttribute($this->env, $this->source, (isset($context["proposition"]) || array_key_exists("proposition", $context) ? $context["proposition"] : (function () { throw new RuntimeError('Variable "proposition" does not exist.', 48, $this->source); })()), "isFavoritedBy", [CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 48, $this->source); })()), "user", [], "any", false, false, false, 48)], "method", false, false, false, 48))) {
             // line 49
             yield "                    Retirer des favoris
                 ";
         } else {
             // line 51
-            yield "                    Ajouter aux favoris
+            yield "                    Ajouter aux favoris ❤️
                 ";
         }
         // line 53
@@ -305,11 +305,11 @@ class __TwigTemplate_26632a55436a606251b150c1c033fdcc extends Template
     <td>
         <form method=\"post\" action=\"{{ path('app_favorite_toggle', { id: proposition.id }) }}\">
             <input type=\"hidden\" name=\"_token\" value=\"{{ csrf_token('toggle_favorite' ~ proposition.id) }}\">
-            <button class=\"btn btn-outline-primary\">
-                {% if proposition.isFavoritedBy(app.user) %}
+            <button class=\"btn-primary-amz\">
+                {% if app.user and proposition.isFavoritedBy(app.user) %}
                     Retirer des favoris
                 {% else %}
-                    Ajouter aux favoris
+                    Ajouter aux favoris ❤️
                 {% endif %}
             </button>
             <span class=\"ms-2\">❤️ {{ proposition.getFavoritesCount() }}</span>
@@ -326,6 +326,6 @@ class __TwigTemplate_26632a55436a606251b150c1c033fdcc extends Template
 
     {{ include('proposition/_delete_form.html.twig') }}
 {% endblock %}
-", "proposition/show.html.twig", "E:\\Formation CDA\\Cours\\18-mise_en_pratique_projet\\portial_citoyen\\templates\\proposition\\show.html.twig");
+", "proposition/show.html.twig", "E:\\Formation CDA\\Cours\\18-mise_en_pratique_projet\\portial_citoyen\\back\\templates\\proposition\\show.html.twig");
     }
 }

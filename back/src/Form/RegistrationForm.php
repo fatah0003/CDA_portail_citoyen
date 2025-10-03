@@ -22,7 +22,7 @@ class RegistrationForm extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('infosUser', InfosUserType::class) // 👈 ici
+            ->add('infosUser', InfosUserType::class)
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -44,7 +44,8 @@ class RegistrationForm extends AbstractType
                         ]),
                         new Regex(
                             self::STRONG_PASSWORD,
-                            message: 'Le mot de passe doit contenir au minimum huit caractères, avec au moins une lettre majuscule, une lettre minuscule, un chiffre, et un caractère spécial (#?!@$ %^&*-_).'
+                            message: 'Le mot de passe doit contenir au minimum huit caractères, avec au moins une
+                            lettre majuscule, une lettre minuscule, un chiffre, et un caractère spécial (#?!@$ %^&*-_).'
                         )
                     ],
                     'label' => 'Mot de passe',

@@ -162,6 +162,6 @@ class __TwigTemplate_669bc98da74bdc3dc2a0209367383cfa extends Template
 
     {{ include('proposition/_delete_form.html.twig') }}
 {% endblock %}
-", "proposition/edit.html.twig", "E:\\Formation CDA\\Cours\\18-mise_en_pratique_projet\\portial_citoyen\\templates\\proposition\\edit.html.twig");
+", "proposition/edit.html.twig", "E:\\Formation CDA\\Cours\\18-mise_en_pratique_projet\\portial_citoyen\\back\\templates\\proposition\\edit.html.twig");
     }
 }

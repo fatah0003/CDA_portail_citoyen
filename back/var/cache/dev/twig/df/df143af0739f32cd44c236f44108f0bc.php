@@ -160,6 +160,6 @@ class __TwigTemplate_412d7c948e3f358ab1204da2dcfe8212 extends Template
     {% include '_partials/homePage/_partner.html.twig' %}
 
 {% endblock %}
-", "home/index.html.twig", "E:\\Formation CDA\\Cours\\18-mise_en_pratique_projet\\portial_citoyen\\templates\\home\\index.html.twig");
+", "home/index.html.twig", "E:\\Formation CDA\\Cours\\18-mise_en_pratique_projet\\portial_citoyen\\back\\templates\\home\\index.html.twig");
     }
 }

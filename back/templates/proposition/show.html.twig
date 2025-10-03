@@ -44,11 +44,11 @@
     <td>
         <form method="post" action="{{ path('app_favorite_toggle', { id: proposition.id }) }}">
             <input type="hidden" name="_token" value="{{ csrf_token('toggle_favorite' ~ proposition.id) }}">
-            <button class="btn btn-outline-primary">
-                {% if proposition.isFavoritedBy(app.user) %}
+            <button class="btn-primary-amz">
+                {% if app.user and proposition.isFavoritedBy(app.user) %}
                     Retirer des favoris
                 {% else %}
-                    Ajouter aux favoris
+                    Ajouter aux favoris ❤️
                 {% endif %}
             </button>
             <span class="ms-2">❤️ {{ proposition.getFavoritesCount() }}</span>

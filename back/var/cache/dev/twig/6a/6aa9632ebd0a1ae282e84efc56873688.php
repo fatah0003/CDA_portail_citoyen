@@ -155,6 +155,6 @@ class __TwigTemplate_65a987615b14970c7f433b57ec60f3d1 extends Template
 
     <a href=\"{{ path('app_proposition_index') }}\">back to list</a>
 {% endblock %}
-", "proposition/new.html.twig", "E:\\Formation CDA\\Cours\\18-mise_en_pratique_projet\\portial_citoyen\\templates\\proposition\\new.html.twig");
+", "proposition/new.html.twig", "E:\\Formation CDA\\Cours\\18-mise_en_pratique_projet\\portial_citoyen\\back\\templates\\proposition\\new.html.twig");
     }
 }

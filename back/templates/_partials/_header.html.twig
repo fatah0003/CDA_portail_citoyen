@@ -10,6 +10,11 @@
             </div>
         </div>
 
+
+        <button class="burger" aria-label="Menu">
+            <img src="{{ asset('pictures/vector.png') }}" alt="Menu">
+        </button>
+
         <nav class="menu-nav">
             <ul class="menu">
                 <li><a href="{{ path('app_home') }}">Accueil</a></li>
@@ -17,7 +22,77 @@
                 <li><a href="#">À propos</a></li>
                 <li><a href="#">Nous contacter</a></li>
             </ul>
-            <a href="{{ path('app_login') }}" class="btn-connexion">Connexion</a>
+            {% if app.user and app.user.infosUser %}
+                <div class="user-menu">
+    <span class="btn-connexion-connect">
+        {{ app.user.infosUser.firstName|capitalize }} {{ app.user.infosUser.lastName|upper }}
+        <span class="online-dot"></span>
+    </span>
+                    <div class="dropdown-menu">
+                        <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{{ path('app_login') }}" class="btn-connexion">Connexion</a>
+            {% endif %}
+
+
+
+
         </nav>
     </div>
 </header>
+
+{% block javascripts %}
+    {% block importmap %}{{ importmap('app') }}{% endblock %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const burger = document.querySelector('.burger-menu');
+            const menu = document.querySelector('.menu-nav');
+
+            if (burger && menu) {
+                burger.addEventListener('click', () => {
+                    // toggle le menu
+                    if (menu.style.display === 'flex') {
+                        menu.style.display = 'none';
+                    } else {
+                        menu.style.display = 'flex';
+                        menu.style.flexDirection = 'column';
+                        menu.style.alignItems = 'center';
+                    }
+                });
+            }
+        });
+    </script>
+
+    <script>
+        let hideTimeout;
+
+        document.addEventListener('mouseover', (event) => {
+            const userMenu = event.target.closest('.user-menu');
+            if (userMenu) {
+                const dropdown = userMenu.querySelector('.dropdown-menu');
+                if (dropdown) {
+                    clearTimeout(hideTimeout);
+                    dropdown.style.display = 'flex';
+                }
+            }
+        });
+
+        document.addEventListener('mouseout', (event) => {
+            const userMenu = event.target.closest('.user-menu');
+            if (userMenu) {
+                const dropdown = userMenu.querySelector('.dropdown-menu');
+                if (dropdown) {
+                    hideTimeout = setTimeout(() => {
+                        dropdown.style.display = 'none';
+                    }, 500);
+                }
+            }
+        });
+    </script>
+
+
+
+
+{% endblock %}

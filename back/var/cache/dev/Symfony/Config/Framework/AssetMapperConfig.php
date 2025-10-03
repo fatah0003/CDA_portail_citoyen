@@ -28,7 +28,7 @@ class AssetMapperConfig
     private $_usedProperties = [];
 
     /**
-     * @default false
+     * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
      */
@@ -188,7 +188,7 @@ class AssetMapperConfig
      * @template TValue
      * @param TValue $value
      * Precompress assets with Brotli, Zstandard and gzip.
-     * @default {"enabled":false,"formats":[],"extensions":[]}
+     * @default {"enabled":false,"formats":[],"extensions":["css","cur","eot","html","js","json","md","otc","otf","proto","rss","rtf","svg","ttc","ttf","txt","wasm","xml"]}
      * @return \Symfony\Config\Framework\AssetMapper\PrecompressConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\Framework\AssetMapper\PrecompressConfig : static)
      */

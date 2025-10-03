@@ -18,6 +18,7 @@ return [
         '/' => [[['_route' => 'app_home', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
         '/proposition' => [[['_route' => 'app_proposition_index', '_controller' => 'App\\Controller\\PropositionController::index'], null, ['GET' => 0], null, false, false, null]],
         '/proposition/new' => [[['_route' => 'app_proposition_new', '_controller' => 'App\\Controller\\PropositionController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/proposition/api/list' => [[['_route' => 'api_proposition_list', '_controller' => 'App\\Controller\\PropositionController::apiList'], null, ['GET' => 0], null, false, false, null]],
         '/register' => [[['_route' => 'app_register', '_controller' => 'App\\Controller\\RegistrationController::register'], null, null, null, false, false, null]],
         '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],

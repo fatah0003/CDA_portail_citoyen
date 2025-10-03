@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/proposition')]
-final class PropositionController extends AbstractController
+class PropositionController extends AbstractController
 {
     #[Route(name: 'app_proposition_index', methods: ['GET'])]
     public function index(PropositionRepository $propositionRepository): Response
@@ -78,5 +78,24 @@ final class PropositionController extends AbstractController
         }
 
         return $this->redirectToRoute('app_proposition_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/api/list', name: 'api_proposition_list', methods: ['GET'])]
+    public function apiList(PropositionRepository $propositionRepository): Response
+    {
+        $propositions = $propositionRepository->findAll();
+
+        $data = [];
+        foreach ($propositions as $proposition) {
+            $data[] = [
+                'id' => $proposition->getId(),
+                'titre' => $proposition->getTitle(),
+                'description' => $proposition->getDescription(),
+                'createdAt' => $proposition->getCreatedAt()?->format('Y-m-d H:i:s'),
+                'user' => $proposition->getUser()?->getEmail(),
+            ];
+        }
+
+        return $this->json($data);
     }
 }

@@ -50,12 +50,12 @@ class __TwigTemplate_9d4917f47998a0c9b4cbf899c7a2319b extends Template
 
         <div class=\"about-content\">
             <div class=\"about-text\">
-                 <h2>Bienvenue sur Portail Citoyen Votre, voix pour une ville meilleure !</h2>
-                 <p>Portail Citoyen est une plateforme participative qui vous permet de faire entendre vos idées pour
-                   améliorer votre cadre de vie. Que vous souhaitiez proposer de nouvelles initiatives, soutenir
-                   celles des autres ou suivre l’évolution des projets,
-                   tout est pensé pour faciliter votre engagement citoyen.
-                 </p>
+                <h2>Bienvenue sur Portail Citoyen Votre, voix pour une ville meilleure !</h2>
+                <p>Portail Citoyen est une plateforme participative qui vous permet de faire entendre vos idées pour
+                    améliorer votre cadre de vie. Que vous souhaitiez proposer de nouvelles initiatives, soutenir
+                    celles des autres ou suivre l’évolution des projets,
+                    tout est pensé pour faciliter votre engagement citoyen.
+                </p>
                 <a href=\"";
         // line 12
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_home");
@@ -111,12 +111,12 @@ class __TwigTemplate_9d4917f47998a0c9b4cbf899c7a2319b extends Template
 
         <div class=\"about-content\">
             <div class=\"about-text\">
-                 <h2>Bienvenue sur Portail Citoyen Votre, voix pour une ville meilleure !</h2>
-                 <p>Portail Citoyen est une plateforme participative qui vous permet de faire entendre vos idées pour
-                   améliorer votre cadre de vie. Que vous souhaitiez proposer de nouvelles initiatives, soutenir
-                   celles des autres ou suivre l’évolution des projets,
-                   tout est pensé pour faciliter votre engagement citoyen.
-                 </p>
+                <h2>Bienvenue sur Portail Citoyen Votre, voix pour une ville meilleure !</h2>
+                <p>Portail Citoyen est une plateforme participative qui vous permet de faire entendre vos idées pour
+                    améliorer votre cadre de vie. Que vous souhaitiez proposer de nouvelles initiatives, soutenir
+                    celles des autres ou suivre l’évolution des projets,
+                    tout est pensé pour faciliter votre engagement citoyen.
+                </p>
                 <a href=\"{{ path('app_home') }}\" class=\"about-button\">En savoir-plus >></a>
             </div>
             <img src=\"{{ asset('pictures/pj-image.jpg') }}\" alt=\"Portrait\">
@@ -125,6 +125,6 @@ class __TwigTemplate_9d4917f47998a0c9b4cbf899c7a2319b extends Template
 
     </div>
 </section>
-", "_partials/homePage/_about.html.twig", "E:\\Formation CDA\\Cours\\18-mise_en_pratique_projet\\portial_citoyen\\templates\\_partials\\homePage\\_about.html.twig");
+", "_partials/homePage/_about.html.twig", "E:\\Formation CDA\\Cours\\18-mise_en_pratique_projet\\portial_citoyen\\back\\templates\\_partials\\homePage\\_about.html.twig");
     }
 }
