@@ -1,0 +1,3 @@
+<?php //4a49a8037890381f6ea33e642d49ccf5
+
+return [PHP_INT_MAX, 'controllers/csrf_protection_controller.js'];
