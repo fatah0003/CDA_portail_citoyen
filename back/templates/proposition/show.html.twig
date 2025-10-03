@@ -10,7 +10,7 @@
             {% if file.fileName %}
                 {% set ext = file.fileName|split('.')|last|lower %}
                 {% if ext in ['jpg', 'jpeg', 'png', 'gif', 'webp'] %}
-                    <img src="{{ vich_uploader_asset(file, 'file') }}" 
+                    <img src="{{ vich_uploader_asset(file, 'file') }}"
                          alt="{{ file.fileName }}">
                 {% else %}
                     <a href="{{ vich_uploader_asset(file, 'file') }}" target="_blank">
@@ -49,12 +49,13 @@
             <form method="post" action="{{ path('app_favorite_toggle', { id: proposition.id }) }}">
                 <input type="hidden" name="_token" value="{{ csrf_token('toggle_favorite' ~ proposition.id) }}">
                 <button class="btn-primary-amz">
-                    {% if proposition.isFavoritedBy(app.user) %}
-                        Retirer des favoris ❤️
+                    {% if app.user and proposition.isFavoritedBy(app.user) %}
+                        Retirer de vos favoris ❤️
                     {% else %}
                         Ajouter aux favoris ❤️
                     {% endif %}
                 </button>
+
                 <span class="ms-2">❤️ {{ proposition.getFavoritesCount() }}</span>
             </form>
 
