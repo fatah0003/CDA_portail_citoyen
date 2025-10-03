@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import logo from '../assets/pictures/logo.jpg';
 
 export default function Header() {
     return (
@@ -6,7 +7,7 @@ export default function Header() {
             <div className="header-container">
                 <div className="logo">
                     <Link to="/">
-                        <img src="/pictures/logo.jpg" alt="Logo" />
+                        <img src={logo} alt="Logo" />
                     </Link>
                     <div className="logo-text">
                         <strong>LA PAROLE AUX CITOYENS</strong>

@@ -366,3 +366,52 @@ header {
     max-width: 40rem; /* max-w-2xl */
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
+/* Propositions.css */
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.loading,
+.empty {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #777;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li.prpo {
+    background: white;
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    transition: all 0.2s ease-in-out;
+}
+
+li:hover {
+
+    transform: translateX(5px);
+    border-color: #007bff;
+}
+
+li.prpo strong {
+    color: #007bff;
+    font-size: 1.1rem;
+}

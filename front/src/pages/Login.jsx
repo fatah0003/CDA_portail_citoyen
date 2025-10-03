@@ -21,9 +21,9 @@ export default function Login() {
             // Exemple : si ton API renvoie un token
             localStorage.setItem("token", response.data.token);
 
-            setSuccess("Connexion réussie ✅");
+            setSuccess("Connexion réussie");
         } catch (err) {
-            setError("Identifiants incorrects ❌");
+            setError("Identifiants incorrects ");
         }
     };
 
