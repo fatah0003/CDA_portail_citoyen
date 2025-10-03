@@ -1,3 +1,6 @@
+/* ======================= */
+/* Header de base */
+/* ======================= */
 header {
     position: sticky;
     top: 0;
@@ -13,14 +16,36 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    justify-items: center;
-    padding-right: 1.2em;
 }
 
+/* ======================= */
+/* Logo */
+/* ======================= */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1.1em;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 550px) {
+    .logo-text {
+        display: none;
+    }
+}
+
+/* ======================= */
+/* Menu principal */
+/* ======================= */
 .menu-nav {
     display: flex;
     align-items: center;
-    justify-items: center;
     gap: 4em;
 }
 
@@ -31,12 +56,11 @@ header {
 }
 
 .menu li a {
-    position: relative;
     color: white;
-    font-family: 'Roboto', sans-serif;
     text-decoration: none;
     font-weight: 400;
     font-size: 16px;
+    position: relative;
     padding: 4px 0;
 }
 
@@ -55,27 +79,9 @@ header {
     width: 100%;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 1.1em;
-
-}
-
-
-
-.logo-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-@media (max-width: 550px) {
-    .logo-text {
-        display: none;
-    }
-}
+/* ======================= */
+/* Boutons de connexion */
+/* ======================= */
 .btn-connexion {
     background-color: #EF7C19;
     padding: 0.6em 3em;
@@ -84,7 +90,7 @@ header {
     font-weight: bold;
     text-decoration: none;
     font-size: 13px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .btn-connexion:hover {
@@ -92,84 +98,7 @@ header {
     transform: scale(1.05);
 }
 
-/* ======================= */
-/* ✅ Ajout du burger menu */
-/* ======================= */
-
-/* Burger caché par défaut */
-.burger {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.burger img {
-    width: 35px;
-    height: 20px;
-}
-
-/* Responsive : à partir de 1000px max */
-@media (max-width: 1000px) {
-    .menu-nav {
-        display: none; /* cache le menu classique */
-        flex-direction: column;
-        align-items: center;
-        background-color: rgb(7, 80, 131);
-        position: absolute;
-        top: 100%;
-        right: 0;
-        width: 100%;
-        padding: 1em;
-    }
-
-    .menu {
-        flex-direction: column;
-        gap: 1em;
-        width: 100%;
-    }
-
-    .btn-connexion {
-        align-self: flex-start;
-    }
-
-    .burger {
-        display: block; /* affiche ton image burger */
-    }
-
-    /* Quand actif, le menu apparaît */
-    .menu-nav.active {
-        display: flex;
-
-
-    }
-}
-
-/*.btn-connexion-connect {*/
-/*    display: inline-flex; !* pour aligner le texte et le point *!*/
-/*    align-items: center;*/
-/*    padding: 0.5rem 1rem;*/
-/*    color: white;*/
-/*    font-weight: bold;*/
-/*    border-radius: 20px;*/
-/*    font-size: 0.9rem;*/
-/*    text-align: center;*/
-/*    gap: 0.5rem; !* espace entre le texte et le point *!*/
-/*}*/
-
-/*.btn-connexion-connect::after {*/
-/*    content: "";*/
-/*    display: inline-block;*/
-/*    width: 10px;*/
-/*    height: 10px;*/
-/*    background-color: #00ff00; !* vert vif *!*/
-/*    border-radius: 50%; !* rond *!*/
-/*}*/
-.user-menu {
-    position: relative;
-    display: inline-block;
-}
-
+/* Connexion connecté */
 .btn-connexion-connect {
     display: inline-flex;
     align-items: center;
@@ -178,10 +107,10 @@ header {
     font-weight: bold;
     border-radius: 20px;
     font-size: 0.9rem;
-    text-align: center;
     gap: 0.5rem;
     cursor: pointer;
     transition: background-color 0.3s;
+    position: relative;
 }
 
 .btn-connexion-connect:hover {
@@ -189,18 +118,23 @@ header {
 }
 
 .online-dot {
-    display: inline-block;
     width: 10px;
     height: 10px;
     background-color: #00ff00;
     border-radius: 50%;
 }
 
-/* Menu déroulant */
+/* ======================= */
+/* Dropdown user */
+/* ======================= */
+.user-menu {
+    position: relative; /* Important pour le dropdown */
+}
+
 .dropdown-menu {
     position: absolute;
-    top: 150%;
-    left: 10%;
+    top: 105%; /* juste sous le bouton */
+    left: 0;
     background-color: white;
     color: black;
     min-width: 150px;
@@ -211,6 +145,10 @@ header {
     z-index: 1000;
 }
 
+.user-menu:hover .dropdown-menu {
+    display: flex;
+}
+
 .dropdown-menu a {
     padding: 0.75rem 1rem;
     text-decoration: none;
@@ -218,5 +156,52 @@ header {
 }
 
 .dropdown-menu a:hover {
-    background-color: #f0f0f0;
+    background-color: #751d1f;
+    border-radius: 8px;
+}
+
+/* ======================= */
+/* Burger menu */
+/* ======================= */
+.burger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1100; /* devant le menu */
+}
+
+.burger img {
+    width: 35px;
+    height: 20px;
+}
+
+/* ======================= */
+/* Responsive mobile */
+/* ======================= */
+@media (max-width: 1000px) {
+    .menu-nav {
+        display: none; /* menu caché par défaut */
+        flex-direction: column;
+        align-items: center;
+        background-color: rgb(7, 80, 131);
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 100%;
+        padding: 1em 0;
+    }
+
+    .menu-nav.active {
+        display: flex;
+    }
+
+    .menu {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .burger {
+        display: block; /* affiche le burger en mobile */
+    }
 }

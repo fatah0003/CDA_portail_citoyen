@@ -42,26 +42,35 @@
         </tbody>
     </table>
     <td>
-        <form method="post" action="{{ path('app_favorite_toggle', { id: proposition.id }) }}">
-            <input type="hidden" name="_token" value="{{ csrf_token('toggle_favorite' ~ proposition.id) }}">
-            <button class="btn-primary-amz">
-                {% if app.user and proposition.isFavoritedBy(app.user) %}
-                    Retirer des favoris
-                {% else %}
-                    Ajouter aux favoris ❤️
-                {% endif %}
-            </button>
+        {% if app.user %}
+            {# Formulaire favoris (si connecté) #}
+            <form method="post" action="{{ path('app_favorite_toggle', { id: proposition.id }) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('toggle_favorite' ~ proposition.id) }}">
+                <button class="btn-primary-amz">
+                    {% if proposition.isFavoritedBy(app.user) %}
+                        Retirer des favoris
+                    {% else %}
+                        Ajouter aux favoris
+                    {% endif %}
+                </button>
+                <span class="ms-2">❤️ {{ proposition.getFavoritesCount() }}</span>
+            </form>
+        {% else %}
+            <p class="text-muted fst-italic">
+                Connectez-vous pour ajouter cette proposition à vos favoris
+            </p>
             <span class="ms-2">❤️ {{ proposition.getFavoritesCount() }}</span>
-        </form>
-
-        <a href="{{ path('app_proposition_show', {'id': proposition.id}) }}" class="btn btn-secondary mt-1">Voir</a>
+        {% endif %}
     </td>
+
 
 
 
     <a href="{{ path('app_proposition_index') }}">back to list</a>
 
-    <a href="{{ path('app_proposition_edit', {'id': proposition.id}) }}">edit</a>
+    {% if app.user and proposition.user == app.user %}
+        <a href="{{ path('app_proposition_edit', {'id': proposition.id}) }}" class=" ">Modifier</a>
 
-    {{ include('proposition/_delete_form.html.twig') }}
+        {{ include('proposition/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}
