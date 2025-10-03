@@ -159,3 +159,14 @@ c12d46,127.0.0.1,POST,http://127.0.0.1:8000/proposition/11/favori,1759482060,,30
 a313b2,127.0.0.1,GET,http://127.0.0.1:8000/,1759482072,,200,request
 9a0e2c,127.0.0.1,GET,http://127.0.0.1:8000/logout,1759482075,,302,request
 907c02,127.0.0.1,GET,http://127.0.0.1:8000/,1759482076,,200,request
+470b82,127.0.0.1,GET,http://127.0.0.1:8000/,1759483387,,200,request
+56286e,127.0.0.1,GET,http://127.0.0.1:8000/proposition,1759483398,,200,request
+89ca81,127.0.0.1,GET,http://127.0.0.1:8000/login,1759483403,,200,request
+becb33,127.0.0.1,POST,http://127.0.0.1:8000/login,1759483407,,302,request
+86418b,127.0.0.1,GET,http://127.0.0.1:8000/,1759483408,,200,request
+e816c5,127.0.0.1,GET,http://127.0.0.1:8000/proposition,1759483411,,200,request
+3046d7,127.0.0.1,GET,http://127.0.0.1:8000/proposition/10,1759483419,,200,request
+9b017e,127.0.0.1,POST,http://127.0.0.1:8000/proposition/10/favori,1759483422,,302,request
+f97883,127.0.0.1,GET,http://127.0.0.1:8000/proposition/10,1759483423,,200,request
+486cf9,127.0.0.1,POST,http://127.0.0.1:8000/proposition/10/favori,1759483426,,302,request
+685746,127.0.0.1,GET,http://127.0.0.1:8000/proposition/10,1759483428,,200,request
