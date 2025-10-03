@@ -19,3 +19,6 @@
 /assets/vendor/
 ###< symfony/asset-mapper ###
 .idea/
+
+/back/var/cache/
+/back/var/log/
