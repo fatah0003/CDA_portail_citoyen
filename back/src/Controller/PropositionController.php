@@ -56,15 +56,23 @@ class PropositionController extends AbstractController
         ]);
 
         $commentsWithUser = [];
+
         foreach ($comments as $comment) {
-            $user = $userRepository->find($comment->getUserId()); // récupère l'utilisateur MySQL
+            $user = $userRepository->find($comment->getUserId()); // récupérer l'utilisateur MySQL
+            $pseudo = 'Utilisateur inconnu';
+
+            if ($user && $user->getInfosUser()) {
+                $pseudo = $user->getInfosUser()->getUserName();
+            }
+
             $commentsWithUser[] = [
                 'id' => $comment->getId(),
                 'content' => $comment->getContent(),
                 'userId' => $comment->getUserId(),
-                'userName' => $user ? $user->getEmail() : 'Utilisateur inconnu', // <- juste l'email
+                'userName' => $pseudo,
             ];
         }
+
 
         return $this->render('proposition/show.html.twig', [
             'proposition' => $proposition,
