@@ -7,41 +7,44 @@
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ proposition.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ proposition.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ proposition.description }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ proposition.createdAt ? proposition.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ proposition.updatedAt ? proposition.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ proposition.status.value }}</td>
-            </tr>
-            <tr>
-                <th>Category</th>
-                <td>{% for category in proposition.category %}
-                        {{ category }}<br>
-                    {% else %}
-                        <em>Aucune catégorie</em>
-                    {% endfor %}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ proposition.id }}</td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td>{{ proposition.title }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ proposition.description }}</td>
+        </tr>
+        <tr>
+            <th>CreatedAt</th>
+            <td>{{ proposition.createdAt ? proposition.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>UpdatedAt</th>
+            <td>{{ proposition.updatedAt ? proposition.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ proposition.status.value }}</td>
+        </tr>
+        <tr>
+            <th>Category</th>
+            <td>
+                {% for category in proposition.category %}
+                    {{ category }}<br>
+                {% else %}
+                    <em>Aucune catégorie</em>
+                {% endfor %}
+            </td>
+        </tr>
         </tbody>
     </table>
-    <td>
+
+    <div class="mt-3">
         <form method="post" action="{{ path('app_favorite_toggle', { id: proposition.id }) }}">
             <input type="hidden" name="_token" value="{{ csrf_token('toggle_favorite' ~ proposition.id) }}">
             <button class="btn-primary-amz">
@@ -53,15 +56,66 @@
             </button>
             <span class="ms-2">❤️ {{ proposition.getFavoritesCount() }}</span>
         </form>
+        <section class="mt-5 border-top pt-4">
+            <h2 class="mb-3">Commentaires</h2>
 
-        <a href="{{ path('app_proposition_show', {'id': proposition.id}) }}" class="btn btn-secondary mt-1">Voir</a>
-    </td>
+            {% if app.user %}
+                <form action="{{ path('add_comment') }}" method="POST" class="mb-4">
+                    <input type="hidden" name="proposalId" value="{{ proposition.id }}">
+
+                    <div class="mb-3">
+                <textarea
+                    name="content"
+                    rows="3"
+                    class="form-control"
+                    placeholder="Écrivez votre commentaire ici..."
+                    required
+                ></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Publier</button>
+                </form>
+            {% else %}
+                <p class="text-muted">
+                    <a href="{{ path('app_login') }}">Connectez-vous</a> pour écrire un commentaire.
+                </p>
+            {% endif %}
+
+            <div class="comments-list mt-4">
+                {% if comments is not empty %}
+                    {% for comment in comments %}
+                        <div class="border rounded p-3 mb-3 bg-light">
+                            <p class="mb-1">
+                                <strong>{{ comment.userName ?? 'Utilisateur inconnu' }}</strong>
+                            </p>
+                            <p class="mb-0">{{ comment.content }}</p>
+
+                            {% if app.user and app.user.id == comment.userId %}
+                                <div class="mt-2">
+                                    <a href="{{ path('edit_comment', {'id': comment.id}) }}">Modifier</a>
+
+                                    <form action="{{ path('delete_comment', {'id': comment.id}) }}" method="POST" style="display:inline">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete_comment' ~ comment.id) }}">
+                                        <button type="submit" class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Supprimer ce commentaire ?')">Supprimer</button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">Aucun commentaire pour le moment.</p>
+                {% endif %}
+            </div>
+        </section>
+
+
+        <a href="{{ path('app_proposition_index') }}" class="btn btn-secondary mt-2">Retour à la liste</a>
+        <a href="{{ path('app_proposition_edit', {'id': proposition.id}) }}" class="btn btn-warning mt-2">Modifier</a>
+
+        {{ include('proposition/_delete_form.html.twig') }}
+    </div>
 
 
 
-    <a href="{{ path('app_proposition_index') }}">back to list</a>
-
-    <a href="{{ path('app_proposition_edit', {'id': proposition.id}) }}">edit</a>
-
-    {{ include('proposition/_delete_form.html.twig') }}
 {% endblock %}

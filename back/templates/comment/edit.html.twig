@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le commentaire{% endblock %}
+
+{% block body %}
+    <h1>Modifier votre commentaire</h1>
+
+    <form action="{{ path('edit_comment', {'id': comment.id}) }}" method="POST">
+        <div class="mb-3">
+            <textarea name="content" rows="4" class="form-control" required>{{ comment.content }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a href="{{ path('app_proposition_show', {'id': comment.proposalId}) }}" class="btn btn-secondary">Annuler</a>
+    </form>
+{% endblock %}

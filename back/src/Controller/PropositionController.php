@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Repository\UserRepository;
 use App\Entity\Proposition;
+use App\Entity\User;
+use App\Document\Comment;
 use App\Form\PropositionForm;
 use App\Repository\PropositionRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,10 +48,27 @@ class PropositionController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_proposition_show', methods: ['GET'])]
-    public function show(Proposition $proposition): Response
+    public function show(Proposition $proposition, DocumentManager $dm, UserRepository $userRepository): Response
     {
+        // Récupère les commentaires MongoDB pour cette proposition
+        $comments = $dm->getRepository(Comment::class)->findBy([
+            'proposalId' => (string)$proposition->getId()
+        ]);
+
+        $commentsWithUser = [];
+        foreach ($comments as $comment) {
+            $user = $userRepository->find($comment->getUserId()); // récupère l'utilisateur MySQL
+            $commentsWithUser[] = [
+                'id' => $comment->getId(),
+                'content' => $comment->getContent(),
+                'userId' => $comment->getUserId(),
+                'userName' => $user ? $user->getEmail() : 'Utilisateur inconnu', // <- juste l'email
+            ];
+        }
+
         return $this->render('proposition/show.html.twig', [
             'proposition' => $proposition,
+            'comments' => $commentsWithUser,
         ]);
     }
 
@@ -99,3 +120,4 @@ class PropositionController extends AbstractController
         return $this->json($data);
     }
 }
+
