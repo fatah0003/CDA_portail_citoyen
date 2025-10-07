@@ -26,9 +26,7 @@ class RegistrationForm extends AbstractType
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
+                    new IsTrue(message: 'You should agree to our terms.'),
                 ],
             ])
             ->add('plainPassword', RepeatedType::class, [
@@ -39,9 +37,7 @@ class RegistrationForm extends AbstractType
                         'class' => 'input-form'
                     ],
                     'constraints' => [
-                        new NotBlank([
-                            'message' => 'Ne doit pas etre vide....',
-                        ]),
+                        new NotBlank(message: 'Ne doit pas etre vide....'),
                         new Regex(
                             self::STRONG_PASSWORD,
                             message: 'Le mot de passe doit contenir au minimum huit caractères, avec au moins une
