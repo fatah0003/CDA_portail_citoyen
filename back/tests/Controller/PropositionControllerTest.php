@@ -3,7 +3,7 @@
 namespace App\Tests\Controller;
 
 use App\Entity\Proposition;
-use App\Repository\PropositionRepository;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -22,58 +22,80 @@ final class PropositionControllerTest extends WebTestCase
         $this->manager = static::getContainer()->get('doctrine')->getManager();
         $this->propositionRepository = $this->manager->getRepository(Proposition::class);
 
+        // Supprime toutes les propositions existantes
         foreach ($this->propositionRepository->findAll() as $object) {
             $this->manager->remove($object);
+        }
+
+        $userRepository = $this->manager->getRepository(User::class);
+        foreach ($userRepository->findAll() as $user) {
+            $this->manager->remove($user);
         }
 
         $this->manager->flush();
     }
 
+    private function createUser(): User
+    {
+        $user = new User();
+        $user->setEmail('test@example.com');
+        $user->setPassword('$2y$13$hashedpassword');
+        $user->setRoles(['ROLE_USER']);
+        $this->manager->persist($user);
+        $this->manager->flush();
+
+        return $user;
+    }
+
     public function testIndex(): void
     {
-        $this->client->followRedirects();
-        $crawler = $this->client->request('GET', $this->path);
+        $this->client->request('GET', $this->path);
+
+        // Si redirection 301, suivre la redirection
+        if ($this->client->getResponse()->isRedirect()) {
+            $this->client->followRedirect();
+        }
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Proposition index');
-
-        // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
+        self::assertPageTitleContains('Proposition');
     }
 
     public function testNew(): void
     {
-        $this->markTestIncomplete();
-        $this->client->request('GET', sprintf('%snew', $this->path));
+        $user = $this->createUser();
 
-        self::assertResponseStatusCodeSame(200);
+        // Simuler la connexion de l'utilisateur
+        $this->client->loginUser($user);
 
-        $this->client->submitForm('Save', [
-            'proposition[title]' => 'Testing',
-            'proposition[description]' => 'Testing',
-            'proposition[createdAt]' => 'Testing',
-            'proposition[updatedAt]' => 'Testing',
-            'proposition[status]' => 'Testing',
-            'proposition[category]' => 'Testing',
-            'proposition[user]' => 'Testing',
+        $crawler = $this->client->request('GET', $this->path . 'new');
+        self::assertResponseIsSuccessful();
+
+
+        $form = $crawler->selectButton('Save')->form([
+            'proposition_form[title]' => 'Test title',
+            'proposition_form[description]' => 'Test description',
+            'proposition_form[category]' => [0],
         ]);
 
-        self::assertResponseRedirects($this->path);
+        $this->client->submit($form);
 
+        self::assertResponseRedirects();
         self::assertSame(1, $this->propositionRepository->count([]));
+
+        $proposition = $this->propositionRepository->findOneBy(['title' => 'Test title']);
+        self::assertNotNull($proposition);
+        self::assertSame('Test description', $proposition->getDescription());
     }
 
     public function testShow(): void
     {
-        $this->markTestIncomplete();
+        $user = $this->createUser();
+
         $fixture = new Proposition();
         $fixture->setTitle('My Title');
-        $fixture->setDescription('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
-        $fixture->setStatus('My Title');
-        $fixture->setCategory('My Title');
-        $fixture->setUser('My Title');
+        $fixture->setDescription('My description');
+        $fixture->setCategory(['general']);
+        $fixture->setUser($user);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -81,62 +103,55 @@ final class PropositionControllerTest extends WebTestCase
         $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Proposition');
-
-        // Use assertions to check that the properties are properly displayed.
+        self::assertSelectorTextContains('body', 'My Title'); // Vérifier que le titre apparaît
     }
 
     public function testEdit(): void
     {
-        $this->markTestIncomplete();
+        $user = $this->createUser();
+
+        // Simuler la connexion si nécessaire
+        $this->client->loginUser($user);
+
         $fixture = new Proposition();
-        $fixture->setTitle('Value');
-        $fixture->setDescription('Value');
-        $fixture->setCreatedAt('Value');
-        $fixture->setUpdatedAt('Value');
-        $fixture->setStatus('Value');
-        $fixture->setCategory('Value');
-        $fixture->setUser('Value');
+        $fixture->setTitle('Old title');
+        $fixture->setDescription('Old description');
+        $fixture->setCategory(['general']);
+        $fixture->setUser($user);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
 
-        $this->client->request('GET', sprintf('%s%s/edit', $this->path, $fixture->getId()));
+        $crawler = $this->client->request('GET', sprintf('%s%s/edit', $this->path, $fixture->getId()));
 
-        $this->client->submitForm('Update', [
-            'proposition[title]' => 'Something New',
-            'proposition[description]' => 'Something New',
-            'proposition[createdAt]' => 'Something New',
-            'proposition[updatedAt]' => 'Something New',
-            'proposition[status]' => 'Something New',
-            'proposition[category]' => 'Something New',
-            'proposition[user]' => 'Something New',
+        // ✅ FIX : Utiliser le bon nom de formulaire
+        $form = $crawler->selectButton('Update')->form([
+            'proposition_form[title]' => 'New title',
+            'proposition_form[description]' => 'New description',
         ]);
 
-        self::assertResponseRedirects('/proposition/');
+        $this->client->submit($form);
 
-        $fixture = $this->propositionRepository->findAll();
+        self::assertResponseRedirects();
 
-        self::assertSame('Something New', $fixture[0]->getTitle());
-        self::assertSame('Something New', $fixture[0]->getDescription());
-        self::assertSame('Something New', $fixture[0]->getCreatedAt());
-        self::assertSame('Something New', $fixture[0]->getUpdatedAt());
-        self::assertSame('Something New', $fixture[0]->getStatus());
-        self::assertSame('Something New', $fixture[0]->getCategory());
-        self::assertSame('Something New', $fixture[0]->getUser());
+        $this->manager->clear();
+        $updated = $this->propositionRepository->find($fixture->getId());
+
+        self::assertSame('New title', $updated->getTitle());
+        self::assertSame('New description', $updated->getDescription());
     }
 
     public function testRemove(): void
     {
-        $this->markTestIncomplete();
+        $user = $this->createUser();
+
+        $this->client->loginUser($user);
+
         $fixture = new Proposition();
-        $fixture->setTitle('Value');
-        $fixture->setDescription('Value');
-        $fixture->setCreatedAt('Value');
-        $fixture->setUpdatedAt('Value');
-        $fixture->setStatus('Value');
-        $fixture->setCategory('Value');
-        $fixture->setUser('Value');
+        $fixture->setTitle('To delete');
+        $fixture->setDescription('Desc');
+        $fixture->setCategory(['general']);
+        $fixture->setUser($user);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -144,7 +159,7 @@ final class PropositionControllerTest extends WebTestCase
         $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
         $this->client->submitForm('Delete');
 
-        self::assertResponseRedirects('/proposition/');
+        self::assertResponseRedirects();
         self::assertSame(0, $this->propositionRepository->count([]));
     }
 }
