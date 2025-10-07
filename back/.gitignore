@@ -1,11 +1,11 @@
 # Symfony
 ###> symfony/framework-bundle ###
-/back/.env.local
-/back/.env.local.php
-/back/.env.*.local
-/back/var/cache/
-/back/var/log/
-/back/vendor/
+.env.*
+.env.local.php
+.env.*.local
+/var/cache/
+/var/log/
+/vendor/
 /public/bundles/
 ###< symfony/framework-bundle ###
 
@@ -15,8 +15,8 @@
 ###< phpunit/phpunit ###
 
 ###> symfony/asset-mapper ###
-/back/public/assets/
-/back/assets/vendor/
+/public/assets/
+/assets/vendor/
 ###< symfony/asset-mapper ###
 
 # IDE
