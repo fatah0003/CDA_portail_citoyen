@@ -1,0 +1,108 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: "Arial", sans-serif;
+}
+
+.dashboard-header {
+    background: #293041;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.dashboard-main {
+    display: flex;
+    flex: 1;
+    background: #f9f9f9;
+}
+
+/* Sidebar */
+.dashboard-sidebar {
+    background: #fff;
+    border-right: 1px solid #ddd;
+    width: 250px;
+}
+
+.dashboard-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dashboard-sidebar li {
+    border-bottom: 1px solid #eee;
+}
+
+.dashboard-sidebar a {
+    display: block;
+    padding: 1rem;
+    color: #333;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.dashboard-sidebar a:hover,
+.dashboard-sidebar a.active {
+    background: #075083;
+    color: white;
+}
+
+/* Content */
+.dashboard-content {
+    flex: 1;
+    padding: 2rem;
+}
+
+.dashboard-content h2 {
+    color: #293041;
+    margin-bottom: 1rem;
+}
+
+/* Formulaire */
+.infos-form {
+    display: grid;
+    gap: 1rem;
+    max-width: 400px;
+}
+
+.infos-form label {
+    font-weight: bold;
+}
+
+.infos-form input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.infos-form button {
+    background: #293041;
+    color: white;
+    padding: 0.7rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.infos-form button:hover {
+    background: #3e4b61;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-main {
+        flex-direction: column;
+    }
+
+    .dashboard-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .dashboard-content {
+        padding: 1rem;
+    }
+}
