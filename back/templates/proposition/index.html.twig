@@ -1,53 +1,233 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Proposition index{% endblock %}
+{% block title %}Propositions{% endblock %}
 
 {% block body %}
-    <h1>Proposition index</h1>
+<div class="page-wrapper">
+    <div class="header-actions">
+        <h1>Liste des propositions</h1>
+        <a href="{{ path('app_proposition_new') }}" class="btn btn-success btn-new"> Nouvelle proposition</a>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>Status</th>
-                <th>Category</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="proposition-grid">
         {% for proposition in propositions %}
-            <tr>
-                <td>{{ proposition.id }}</td>
-                <td>{{ proposition.title }}</td>
-                <td>{{ proposition.description }}</td>
-                <td>{{ proposition.createdAt ? proposition.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ proposition.updatedAt ? proposition.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ proposition.status.value }}</td>
-                <td>{% for category in proposition.category %}
-                        {{ category }}
-                    {% else %}
-                        <em>Aucune catégorie</em>
-                    {% endfor %}</td>
-                <td>
-                    <a href="{{ path('app_proposition_show', {'id': proposition.id}) }}">show</a>
+            <div class="proposition-card">
+                <a href="{{ path('app_proposition_show', {'id': proposition.id}) }}" class="card-link">
 
-                </td>
-            </tr>
-            <td>
-                <span class="ms-2">❤️ {{ proposition.getFavoritesCount() }}</span>
-            </td>
+                    <!-- Image -->
+                    <div class="prop-image-container">
+                        {% if proposition.files|length > 0 %}
+                            {% set firstFile = proposition.files|first %}
+                            {% set ext = firstFile.fileName|split('.')|last|lower %}
+                            {% if ext in ['jpg', 'jpeg', 'png', 'gif', 'webp'] %}
+                                <img src="{{ vich_uploader_asset(firstFile, 'file') }}" alt="{{ firstFile.fileName }}" class="prop-image">
+                            {% else %}
+                                <div class="file-placeholder">📎</div>
+                            {% endif %}
+                        {% else %}
+                            <div class="file-placeholder">📷</div>
+                        {% endif %}
+                    </div>
 
+                    <!-- Contenu -->
+                    <div class="prop-content">
+                        <h2 class="prop-title">{{ proposition.title }}</h2>
+                        <p class="prop-description">
+                            {{ proposition.description|length > 100 ? proposition.description|slice(0, 100) ~ '...' : proposition.description }}
+                        </p>
+
+                        <div class="prop-footer">
+                            <span class="prop-meta">🕒 {{ proposition.createdAt ? proposition.createdAt|date('d/m/Y à H:i') : '-' }}</span>
+                            <div class="favorites">❤️ {{ proposition.getFavoritesCount() }}</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
         {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
+            <p>Aucune proposition trouvée.</p>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
+</div>
 
-    <a href="{{ path('app_proposition_new') }}">Create new</a>
+<style>
+/* Conteneur global */
+.page-wrapper {
+    padding: 0 60px; /* desktop padding conservé */
+}
+
+/* Header et bouton d'ajout */
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+.header-actions h1 {
+    margin: 0 0 10px 0;
+}
+.btn-new {
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+/* Grille des propositions */
+.proposition-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+/* Carte individuelle */
+.proposition-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 450px; /* desktop height conservé */
+}
+.proposition-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* Lien global */
+.card-link {
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Image */
+.prop-image-container {
+    width: 100%;
+    height: 250px; /* desktop height conservé */
+    background: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: 1px solid #ddd;
+}
+.prop-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.prop-image-container:hover .prop-image {
+    transform: scale(1.05);
+}
+.file-placeholder {
+    font-size: 3rem;
+    color: #bbb;
+}
+
+/* Contenu texte */
+.prop-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+.prop-title {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+.prop-description {
+    font-size: 1rem;
+    color: #555;
+    margin: 10px 0;
+}
+
+/* Footer */
+.prop-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Boutons */
+.btn {
+    padding: 5px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    color: white;
+}
+.btn-primary {
+    background-color: #007bff;
+}
+.btn-success {
+    background-color: #28a745;
+}
+
+/* Compteur favoris */
+.favorites {
+    font-size: 1.2rem;
+    color: #e74c3c;
+}
+
+/* Responsive Desktop/Tablet */
+@media (max-width: 1024px) {
+    .proposition-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile : scroll vertical, 2 cartes + moitié visible, plus compact */
+@media (max-width: 768px) {
+    .page-wrapper {
+        padding: 0 60px;
+    }
+
+    .header-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .btn-new {
+        margin-top: 10px;
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
+
+    .proposition-grid {
+        max-height: 550px;
+        overflow-y: auto;
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .proposition-card {
+        min-height: 180px; /* compact pour mobile */
+    }
+
+    .prop-image-container {
+        height: 100px; /* image plus petite */
+    }
+
+    .prop-content {
+        padding: 10px;
+    }
+
+    .prop-title {
+        font-size: 1rem;
+    }
+
+    .prop-description {
+        font-size: 0.85rem;
+    }
+
+    .favorites {
+        font-size: 0.9rem;
+    }
+}
+</style>
 {% endblock %}

@@ -1,24 +1,25 @@
-
+# Symfony
 ###> symfony/framework-bundle ###
-/back/.env.local
-/back/.env.local.php
-/back/.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
-/var/
+.env.*
+.env.local.php
+.env.*.local
+/var/cache/
+/var/log/
 /vendor/
+/public/bundles/
 ###< symfony/framework-bundle ###
-
 ###> phpunit/phpunit ###
 /phpunit.xml
 /.phpunit.cache/
 ###< phpunit/phpunit ###
-
 ###> symfony/asset-mapper ###
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+# IDE
 .idea/
-
-/back/var/cache/
-/back/var/log/
+.vscode/
+.qodo/
+# Optional: fichiers système
+.DS_Store
+Thumbs.db

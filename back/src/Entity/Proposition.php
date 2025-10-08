@@ -46,12 +46,19 @@ class Proposition
     #[ORM\OneToMany(targetEntity: Favorite::class, mappedBy: 'proposition')]
     private Collection $favorites;
 
+    /**
+     * @var Collection<int, PropositionFile>
+     */
+    #[ORM\OneToMany(mappedBy: 'proposition', targetEntity: PropositionFile::class, cascade: ['persist', 'remove'])]
+    private Collection $files;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
         $this->status = PropositionStatus::ACTIF;
         $this->favorites = new ArrayCollection();
+        $this->files = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,7 +74,6 @@ class Proposition
     public function setTitle(string $title): static
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -79,7 +85,6 @@ class Proposition
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -91,7 +96,6 @@ class Proposition
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -103,7 +107,6 @@ class Proposition
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
-
         return $this;
     }
 
@@ -115,7 +118,6 @@ class Proposition
     public function setStatus(PropositionStatus $status): static
     {
         $this->status = $status;
-
         return $this;
     }
 
@@ -130,7 +132,6 @@ class Proposition
     public function setCategory(array $category): static
     {
         $this->category = $category;
-
         return $this;
     }
 
@@ -142,7 +143,6 @@ class Proposition
     public function setUser(?User $user): static
     {
         $this->user = $user;
-
         return $this;
     }
 
@@ -160,21 +160,19 @@ class Proposition
             $this->favorites->add($favorite);
             $favorite->setProposition($this);
         }
-
         return $this;
     }
 
     public function removeFavorite(Favorite $favorite): static
     {
         if ($this->favorites->removeElement($favorite)) {
-            // set the owning side to null (unless already changed)
             if ($favorite->getProposition() === $this) {
                 $favorite->setProposition(null);
             }
         }
-
         return $this;
     }
+
     public function isFavoritedBy(User $user): bool
     {
         foreach ($this->favorites as $favorite) {
@@ -190,4 +188,30 @@ class Proposition
         return $this->favorites->count();
     }
 
+    /**
+     * @return Collection<int, PropositionFile>
+     */
+    public function getFiles(): Collection
+    {
+        return $this->files;
+    }
+
+    public function addFile(PropositionFile $file): static
+    {
+        if (!$this->files->contains($file)) {
+            $this->files->add($file);
+            $file->setProposition($this);
+        }
+        return $this;
+    }
+
+    public function removeFile(PropositionFile $file): static
+    {
+        if ($this->files->removeElement($file)) {
+            if ($file->getProposition() === $this) {
+                $file->setProposition(null);
+            }
+        }
+        return $this;
+    }
 }

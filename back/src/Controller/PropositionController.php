@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/proposition')]
-class PropositionController extends AbstractController
+final class PropositionController extends AbstractController
 {
     #[Route(name: 'app_proposition_index', methods: ['GET'])]
     public function index(PropositionRepository $propositionRepository): Response
@@ -23,23 +23,36 @@ class PropositionController extends AbstractController
     }
 
     #[Route('/new', name: 'app_proposition_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $em): Response
     {
         $proposition = new Proposition();
         $form = $this->createForm(PropositionForm::class, $proposition);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $proposition->setUser($this->getUser());
-            $entityManager->persist($proposition);
-            $entityManager->flush();
 
-            return $this->redirectToRoute('app_proposition_index', [], Response::HTTP_SEE_OTHER);
+            // Lier la proposition à l'utilisateur courant
+            $proposition->setUser($this->getUser());
+
+            // Lier correctement chaque fichier à la proposition
+            foreach ($proposition->getFiles() as $file) {
+                if ($file->getFile() === null) {
+                    $proposition->removeFile($file);
+                } else {
+                    $file->setProposition($proposition);
+                    $file->setUpdatedAt(new \DateTimeImmutable());
+                }
+            }
+
+            $em->persist($proposition);
+            $em->flush();
+
+            $this->addFlash('success', 'Proposition créée avec succès !');
+            return $this->redirectToRoute('app_proposition_index');
         }
 
         return $this->render('proposition/new.html.twig', [
-            'proposition' => $proposition,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -58,46 +71,37 @@ class PropositionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // Nettoyer les fichiers vides
+            foreach ($proposition->getFiles() as $file) {
+                if ($file->getFile() === null) {
+                    $proposition->removeFile($file);
+                } else {
+                    $file->setProposition($proposition);
+                    $file->setUpdatedAt(new \DateTimeImmutable());
+                }
+            }
+
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_proposition_show', [
-                'id' => $proposition->getId(),
-            ], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Proposition modifiée avec succès !');
+            return $this->redirectToRoute('app_proposition_index');
         }
 
         return $this->render('proposition/edit.html.twig', [
             'proposition' => $proposition,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
     #[Route('/{id}', name: 'app_proposition_delete', methods: ['POST'])]
     public function delete(Request $request, Proposition $proposition, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$proposition->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $proposition->getId(), $request->request->get('_token'))) {
             $entityManager->remove($proposition);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_proposition_index', [], Response::HTTP_SEE_OTHER);
-    }
-
-    #[Route('/api/list', name: 'api_proposition_list', methods: ['GET'])]
-    public function apiList(PropositionRepository $propositionRepository): Response
-    {
-        $propositions = $propositionRepository->findAll();
-
-        $data = [];
-        foreach ($propositions as $proposition) {
-            $data[] = [
-                'id' => $proposition->getId(),
-                'titre' => $proposition->getTitle(),
-                'description' => $proposition->getDescription(),
-                'createdAt' => $proposition->getCreatedAt()?->format('Y-m-d H:i:s'),
-                'user' => $proposition->getUser()?->getEmail(),
-            ];
-        }
-
-        return $this->json($data);
+        return $this->redirectToRoute('app_proposition_index');
     }
 }
