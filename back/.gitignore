@@ -21,7 +21,10 @@
 
 # IDE
 .idea/
+.vscode/
+.qodo/
 
 # Optional: fichiers système
 .DS_Store
 Thumbs.db
+
