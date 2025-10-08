@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="dashboard">
+        <div class="dashboard-header">
+            <h1>Mon compte</h1>
+        </div>
+
+        <main class="dashboard-main">
+            <nav class="dashboard-sidebar">
+                <ul>
+                    <li><a href="#" class="menu-link" data-section="welcome">Interface</a></li>
+                    <li><a href="#" class="menu-link" data-section="infos">Détails du compte</a></li>
+                    <li><a href="#" class="menu-link" data-section="password">Mes propositions</a></li>
+                    <li><a href="#" class="menu-link logout">Se déconnecter</a></li>
+                </ul>
+            </nav>
+
+            <section class="dashboard-content" id="dashboard-content">
+                <h2>Bienvenue sur votre tableau de bord</h2>
+                <p>Depuis cette interface, vous pourrez consulter et modifier vos informations personnelles.</p>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('.menu-link');
+            const content = document.getElementById('dashboard-content');
+
+            links.forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    links.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+
+                    const section = link.dataset.section;
+
+                    fetch(`/dashboard/section/${section}`)
+                        .then(response => response.text())
+                        .then(html => {
+                            content.innerHTML = html;
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            content.innerHTML = `<p>Erreur lors du chargement de la section.</p>`;
+                        });
+                });
+            });
+        });
+
+    </script>
+{% endblock %}
