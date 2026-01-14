@@ -5,7 +5,7 @@
 .env.*.local
 /var/cache/
 /var/log/
-/vendor/
+**/vendor/
 /public/bundles/
 ###< symfony/framework-bundle ###
 
