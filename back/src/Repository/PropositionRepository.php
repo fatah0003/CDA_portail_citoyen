@@ -16,6 +16,17 @@ class PropositionRepository extends ServiceEntityRepository
         parent::__construct($registry, Proposition::class);
     }
 
+    public function findLatestWithAuthor(int $limit = 20): array
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.user', 'u')->addSelect('u')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+
 //    /**
 //     * @return Proposition[] Returns an array of Proposition objects
 //     */

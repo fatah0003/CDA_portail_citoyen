@@ -14,6 +14,9 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use App\Form\InfosUserType;
 use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Validator\Constraints\Email;
+
 
 class RegistrationForm extends AbstractType
 {
@@ -21,7 +24,12 @@ class RegistrationForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
+            ->add('email', EmailType::class, [
+                'constraints' => [
+                    new NotBlank(message: 'L’email est obligatoire.'),
+                    new Email(message: 'Veuillez saisir une adresse email valide.'),
+                ],
+            ])
             ->add('infosUser', InfosUserType::class)
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,

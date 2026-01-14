@@ -26,9 +26,19 @@ class PropositionController extends AbstractController
         ]);
     }
 
+    #[Route('/latest', name: 'app_proposition_latest', methods: ['GET'])]
+    public function latest(PropositionRepository $propositionRepository): Response
+    {
+        return $this->render('proposition/index.html.twig', [
+            'propositions' => $propositionRepository->findLatestWithAuthor(20),
+        ]);
+    }
+
+
     #[Route('/new', name: 'app_proposition_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $proposition = new Proposition();
         $form = $this->createForm(PropositionForm::class, $proposition);
         $form->handleRequest($request);
@@ -101,6 +111,7 @@ class PropositionController extends AbstractController
     #[Route('/{id}', name: 'app_proposition_delete', methods: ['POST'])]
     public function delete(Request $request, Proposition $proposition, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         if ($this->isCsrfTokenValid('delete'.$proposition->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($proposition);
             $entityManager->flush();
